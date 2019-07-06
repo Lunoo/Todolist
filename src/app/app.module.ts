@@ -10,7 +10,7 @@ import { TodoListModule } from './todo-list/todo-list.module';
         TodoListModule,
     ],
     declarations: [
-        AppComponent
+        AppComponent,
     ],
     bootstrap: [
         AppComponent

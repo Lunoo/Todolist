@@ -25,6 +25,10 @@ todo-root {
 	overflow: hidden;
 }
 
+todo-item {
+	display: block;
+}
+
 .todo-item {
 	position: relative;
 	padding: 20px 10px;
@@ -47,8 +51,4 @@ todo-root {
 	//  content: "";
 	//  background: rgba($light-blue, .3);
 	//}
-}
-
-.todo-list.cdk-drop-list-dragging .todo-item:not(.cdk-drag-placeholder) {
-	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

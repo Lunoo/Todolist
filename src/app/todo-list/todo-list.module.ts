@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 
+import { TodoItemModule } from '../todo-item/todo-item.module';
 import { TodoListComponent } from './todo-list.component';
 
 @NgModule({
     imports: [
         CommonModule,
         DragDropModule,
-        MatCheckboxModule,
+        TodoItemModule,
     ],
     declarations: [
         TodoListComponent
