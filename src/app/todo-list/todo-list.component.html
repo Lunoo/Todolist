@@ -1,0 +1,5 @@
+<div cdkDropList class="todo-list" (cdkDropListDropped)="drop($event)">
+    <div class="todo-item" *ngFor="let movie of movies" cdkDrag>
+        <mat-checkbox>{{movie}}</mat-checkbox>
+    </div>
+</div>
