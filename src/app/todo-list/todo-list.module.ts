@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatButtonModule } from '@angular/material';
 
-import { DialogModule } from '../dialog/dialog.module';
-import { TodoItemModule } from '../todo-item/todo-item.module';
+import { DialogModule } from './dialog/dialog.module';
+import { TodoItemModule } from './todo-item/todo-item.module';
 import { TodoListComponent } from './todo-list.component';
 
 @NgModule({

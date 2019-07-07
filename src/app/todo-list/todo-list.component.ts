@@ -1,8 +1,10 @@
 import { animate, animateChild, group, query, stagger, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../dialog/dialog.component';
+
+import { DialogComponent } from './dialog/dialog.component';
+import { TodoService, Task } from './todo.service';
 
 @Component({
     selector: 'todo-list',
@@ -10,7 +12,7 @@ import { DialogComponent } from '../dialog/dialog.component';
     animations: [
         trigger('list', [
             transition(':enter', [
-                query('@items', stagger(300, animateChild()))
+                query('@items', stagger(300, animateChild()), {optional: true})
             ]),
         ]),
         trigger('items', [
@@ -54,27 +56,25 @@ import { DialogComponent } from '../dialog/dialog.component';
         )
     ]
 })
-export class TodoListComponent {
-    movies = [
-        'Episode I - The Phantom Menace',
-        'Episode II - Attack of the Clones',
-        'Episode III - Revenge of the Sith',
-        'Episode IV - A New Hope',
-        'Episode V - The Empire Strikes Backwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww',
-        'Episode VI - Return of the Jedi',
-        'Episode VII - The Force Awakens',
-        'Episode VIII - The Last Jedi'
-    ];
+export class TodoListComponent implements OnInit {
+    tasks: Task[];
 
-    constructor(public dialog: MatDialog) {
+    constructor(public dialog: MatDialog,
+                public service: TodoService) {
+    }
+
+    ngOnInit(): void {
+        this.tasks = this.service.getTasks();
     }
 
     drop(event: CdkDragDrop<string[]>): void {
-        moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+        moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
+        this.service.setTasks(this.tasks);
     }
 
     deleteItem(index: number): void {
-        this.movies.splice(index, 1);
+        this.tasks.splice(index, 1);
+        this.service.setTasks(this.tasks);
     }
 
     openDialog(label: string, index: number): void {
@@ -84,9 +84,20 @@ export class TodoListComponent {
         });
 
         dialogRef.afterClosed().subscribe((res: string) => {
-            if (res) {
-                this.movies[index] = res;
+            if (!res) {
+                return;
             }
+
+            if (this.tasks[index]) {
+                this.tasks[index].label = res;
+            } else {
+                this.tasks.push({
+                    label: res,
+                    checked: false
+                });
+            }
+
+            this.service.setTasks(this.tasks);
         });
     }
 }

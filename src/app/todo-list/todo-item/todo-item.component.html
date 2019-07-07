@@ -1,0 +1,13 @@
+<div class="todo-item">
+    <div class="todo-checkbox">
+        <mat-checkbox
+            [checked]="task.checked"
+            (change)="checkItem($event.checked)"
+        >{{task.label}}</mat-checkbox>
+    </div>
+
+    <div class="todo-item-actions">
+        <mat-icon (click)="edit.emit(task.label)">edit</mat-icon>
+        <mat-icon (click)="delete.emit()">delete</mat-icon>
+    </div>
+</div>
