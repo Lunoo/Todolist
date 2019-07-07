@@ -1,3 +1,12 @@
-<div cdkDropList class="todo-list" (cdkDropListDropped)="drop($event)">
-    <todo-item cdkDrag *ngFor="let movie of movies" [label]="movie"></todo-item>
+<div @list cdkDropList
+     class="todo-list"
+     (cdkDropListDropped)="drop($event)">
+    <todo-item
+        @items cdkDrag *ngFor="let movie of movies; let i = index"
+        [label]="movie"
+        (edit)="openDialog($event, i)"
+        (delete)="deleteItem(i)"
+    ></todo-item>
 </div>
+
+<button mat-button class="todo-button" (click)="openDialog('', movies.length)">Add</button>

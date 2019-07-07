@@ -1,3 +1,10 @@
 <div class="todo-item">
-    <mat-checkbox>{{label}}</mat-checkbox>
+    <div class="todo-checkbox">
+        <mat-checkbox [checked]="checked">{{label}}</mat-checkbox>
+    </div>
+
+    <div class="todo-item-actions">
+        <mat-icon (click)="edit.emit(label)">edit</mat-icon>
+        <mat-icon (click)="delete.emit()">delete</mat-icon>
+    </div>
 </div>
