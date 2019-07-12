@@ -1,12 +1,12 @@
-<div @list cdkDropList class="todo-list"
+<div @todoListInit cdkDropList class="todo-list"
      (cdkDropListDropped)="drop($event)">
     <todo-item
-        @items cdkDrag *ngFor="let task of tasks; let i = index"
-        [task]="task"
-        (checked)="service.setTasks(tasks)"
-        (edit)="openDialog($event, i)"
+        [@todoAnimate]="todoState" cdkDrag *ngFor="let todo of todoList; let i = index"
+        [todo]="todo"
+        (checked)="service.setTodoList(todoList)"
+        (edit)="openDialog($event.text, i)"
         (delete)="deleteItem(i)"
     ></todo-item>
 </div>
 
-<button mat-button class="todo-button" (click)="openDialog('', tasks.length)">Add</button>
+<button mat-button class="todo-button" (click)="openDialog('', todoList.length)">Add</button>

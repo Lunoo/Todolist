@@ -1,19 +1,19 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Task } from '../todo.service';
+import { Todo } from '../../models/todo';
 
 @Component({
     selector: 'todo-item',
     templateUrl: './todo-item.component.html'
 })
 export class TodoItemComponent {
-    @Input() task: Task;
+    @Input() todo: Todo;
 
-    @Output() checked: EventEmitter<void> = new EventEmitter();
-    @Output() edit: EventEmitter<string> = new EventEmitter();
+    @Output() checked: EventEmitter<Todo> = new EventEmitter();
+    @Output() edit: EventEmitter<Todo> = new EventEmitter();
     @Output() delete: EventEmitter<void> = new EventEmitter();
 
     checkItem(checked: boolean): void {
-        this.task.checked = checked;
-        this.checked.emit();
+        this.todo.checked = checked;
+        this.checked.emit(this.todo);
     }
 }

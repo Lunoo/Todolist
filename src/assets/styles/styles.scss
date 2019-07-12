@@ -7,16 +7,14 @@ body {
 	height: 100vh;
 	margin: 0;
 	background: linear-gradient(to right, $dark-blue, $light-blue, rgb(36, 36, 62));
+	overflow-x: hidden;
 }
 
 todo-root {
 	display: block;
 	margin: auto;
-}
-
-.todo-list {
+	max-width: calc(100% - 40px);
 	width: 500px;
-	max-width: 100%;
 }
 
 todo-item {

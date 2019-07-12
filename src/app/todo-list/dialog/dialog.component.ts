@@ -6,17 +6,17 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
     templateUrl: './dialog.component.html'
 })
 export class DialogComponent {
-    @Input() label: string;
+    @Input() text: string;
 
     constructor(
         private dialogRef: MatDialogRef<DialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: { label: string }
+        @Inject(MAT_DIALOG_DATA) public data: { text: string }
     ) {
-        this.label = data.label;
+        this.text = data.text;
     }
 
     save(): void {
-        this.dialogRef.close(this.label);
+        this.dialogRef.close(this.text.trim());
     }
 
     cancel(): void {

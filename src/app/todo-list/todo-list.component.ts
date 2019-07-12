@@ -1,86 +1,55 @@
-import { animate, animateChild, group, query, stagger, style, transition, trigger } from '@angular/animations';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
+import { Todo } from '../models/todo';
 import { DialogComponent } from './dialog/dialog.component';
-import { TodoService, Task } from './todo.service';
+import { TodoService } from './todo.service';
+import { todoAnimation } from './todo.animation';
 
 @Component({
     selector: 'todo-list',
     templateUrl: './todo-list.component.html',
     animations: [
-        trigger('list', [
-            transition(':enter', [
-                query('@items', stagger(300, animateChild()), {optional: true})
-            ]),
-        ]),
-        trigger('items', [
-            transition(':enter', [
-                style({
-                    height: 0,
-                    transform: 'scale(0.5)',
-                    opacity: 0
-                }),
-                group([
-                    animate(
-                        '1s cubic-bezier(.8, -0.6, 0.2, 1.5)',
-                        style({
-                            height: '*'
-                        })
-                    ),
-                    animate(
-                        '1s cubic-bezier(.8, -0.6, 0.2, 1.5)',
-                        style({
-                            transform: 'scale(1)',
-                            opacity: 1
-                        })
-                    )
-                ])
-            ]),
-            transition(':leave', [
-                style({
-                    transform: 'scale(1)',
-                    opacity: 1,
-                    height: '*'
-                }),
-                animate('.5s cubic-bezier(.8, -0.6, 0.2, 1.5)',
-                    style({
-                        transform: 'scale(0.5)',
-                        opacity: 0,
-                        height: '0',
-                        margin: '0'
-                    })
-                )]
-            )]
-        )
+        todoAnimation.todoList,
+        todoAnimation.todoItem
     ]
 })
 export class TodoListComponent implements OnInit {
-    tasks: Task[];
+    todoList: Todo[];
+    todoState = 'show';
 
     constructor(public dialog: MatDialog,
                 public service: TodoService) {
     }
 
     ngOnInit(): void {
-        this.tasks = this.service.getTasks();
+        this.todoList = this.service.getTodoList();
     }
 
-    drop(event: CdkDragDrop<string[]>): void {
-        moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
-        this.service.setTasks(this.tasks);
+    drop(event: CdkDragDrop<Todo[]>): void {
+        if (!event.isPointerOverContainer) {
+            this.deleteItem(event.currentIndex);
+        } else {
+            moveItemInArray(this.todoList, event.previousIndex, event.currentIndex);
+        }
+
+        this.service.setTodoList(this.todoList);
     }
 
     deleteItem(index: number): void {
-        this.tasks.splice(index, 1);
-        this.service.setTasks(this.tasks);
+        this.todoState = 'left';
+
+        setTimeout(() => {
+            this.todoList.splice(index, 1);
+            this.service.setTodoList(this.todoList);
+        }, 0);
     }
 
-    openDialog(label: string, index: number): void {
+    openDialog(text: string, index: number): void {
         const dialogRef = this.dialog.open(DialogComponent, {
-            width: '500px',
-            data: {label: label}
+            width: '480px',
+            data: {text}
         });
 
         dialogRef.afterClosed().subscribe((res: string) => {
@@ -88,16 +57,17 @@ export class TodoListComponent implements OnInit {
                 return;
             }
 
-            if (this.tasks[index]) {
-                this.tasks[index].label = res;
+            if (this.todoList[index]) {
+                this.todoList[index].text = res;
             } else {
-                this.tasks.push({
-                    label: res,
+                this.todoList.push({
+                    id: new Date().getTime(),
+                    text: res,
                     checked: false
                 });
             }
 
-            this.service.setTasks(this.tasks);
+            this.service.setTodoList(this.todoList);
         });
     }
 }
