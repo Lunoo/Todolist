@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIconModule } from '@angular/material/icon';
 
+import { SharedModule } from '../../shared/shared.module';
 import { TodoItemComponent } from './todo-item.component';
 
 @NgModule({
     imports: [
-        CommonModule,
-        MatCheckboxModule,
-        MatIconModule,
+        SharedModule
     ],
     declarations: [
         TodoItemComponent

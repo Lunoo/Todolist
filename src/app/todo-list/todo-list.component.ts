@@ -17,7 +17,6 @@ import { todoAnimation } from './todo.animation';
 })
 export class TodoListComponent implements OnInit {
     todoList: Todo[];
-    todoState = 'show';
 
     constructor(public dialog: MatDialog,
                 public service: TodoService) {
@@ -28,22 +27,13 @@ export class TodoListComponent implements OnInit {
     }
 
     drop(event: CdkDragDrop<Todo[]>): void {
-        if (!event.isPointerOverContainer) {
-            this.deleteItem(event.currentIndex);
-        } else {
-            moveItemInArray(this.todoList, event.previousIndex, event.currentIndex);
-        }
-
+        moveItemInArray(this.todoList, event.previousIndex, event.currentIndex);
         this.service.setTodoList(this.todoList);
     }
 
     deleteItem(index: number): void {
-        this.todoState = 'left';
-
-        setTimeout(() => {
-            this.todoList.splice(index, 1);
-            this.service.setTodoList(this.todoList);
-        }, 0);
+        this.todoList.splice(index, 1);
+        this.service.setTodoList(this.todoList);
     }
 
     openDialog(text: string, index: number): void {

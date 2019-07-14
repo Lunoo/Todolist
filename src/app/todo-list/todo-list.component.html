@@ -1,7 +1,8 @@
 <div @todoListInit cdkDropList class="todo-list"
      (cdkDropListDropped)="drop($event)">
     <todo-item
-        [@todoAnimate]="todoState" cdkDrag *ngFor="let todo of todoList; let i = index"
+        *ngFor="let todo of todoList; let i = index"
+        @todoAnimate cdkDrag
         [todo]="todo"
         (checked)="service.setTodoList(todoList)"
         (edit)="openDialog($event.text, i)"
