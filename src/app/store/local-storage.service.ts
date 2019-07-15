@@ -6,7 +6,7 @@ const STORAGE_KEY = 'todoList';
 @Injectable({
     providedIn: 'root'
 })
-export class TodoService {
+export class LocalStorageService {
     setTodoList(list: Todo[]): void {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
     }

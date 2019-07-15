@@ -1,12 +1,12 @@
-<h1 mat-dialog-title>{{!data.text ? 'Create' : 'Edit'}} todo</h1>
+<h1 mat-dialog-title>{{!data.id ? 'Create' : 'Edit'}} todo</h1>
 
 <div mat-dialog-content>
     <mat-form-field>
-        <textarea matInput cdkTextareaAutosize [(ngModel)]="text"></textarea>
+        <textarea matInput cdkTextareaAutosize [(ngModel)]="todo.title"></textarea>
     </mat-form-field>
 </div>
 
 <div mat-dialog-actions>
     <button mat-button (click)="cancel()">Cancel</button>
-    <button mat-button (click)="save()" [disabled]="!text || !text.trim()">Save</button>
+    <button mat-button (click)="save()" [disabled]="!todo.title || !todo.title.trim()">Save</button>
 </div>

@@ -1,22 +1,25 @@
 import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
+import { Todo } from '../../models/todo';
+
 @Component({
     selector: 'todo-dialog',
     templateUrl: './dialog.component.html'
 })
 export class DialogComponent {
-    @Input() text: string;
+    @Input() todo: Todo;
 
     constructor(
         private dialogRef: MatDialogRef<DialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: { text: string }
+        @Inject(MAT_DIALOG_DATA) public data: Todo
     ) {
-        this.text = data.text;
+        this.todo = data.id ? data : new Todo();
     }
 
     save(): void {
-        this.dialogRef.close(this.text.trim());
+        this.todo.title = this.todo.title.trim();
+        this.dialogRef.close(this.todo);
     }
 
     cancel(): void {

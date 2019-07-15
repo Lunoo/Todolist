@@ -1,7 +1,11 @@
-<button mat-button>
+<button mat-button
+        [disabled]="!hasPast()"
+        (click)="back()">
     <mat-icon>arrow_back</mat-icon>
 </button>
 
-<button mat-button>
+<button mat-button
+        [disabled]="!hasFuture()"
+        (click)="next()">
     <mat-icon>arrow_forward</mat-icon>
 </button>

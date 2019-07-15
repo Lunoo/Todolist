@@ -1,11 +1,14 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { ID } from '@datorama/akita';
+import { Observable } from 'rxjs';
 
 import { Todo } from '../models/todo';
-import { DialogComponent } from './dialog/dialog.component';
-import { TodoService } from './todo.service';
 import { todoAnimation } from './todo.animation';
+import { DialogComponent } from './dialog/dialog.component';
+import { TodoQuery } from '../store/todo.query';
+import { TodoService } from '../store/todo.service';
 
 @Component({
     selector: 'todo-list',
@@ -16,48 +19,54 @@ import { todoAnimation } from './todo.animation';
     ]
 })
 export class TodoListComponent implements OnInit {
-    todoList: Todo[];
+    todoList$: Observable<Todo[]>;
 
     constructor(public dialog: MatDialog,
-                public service: TodoService) {
+                private query: TodoQuery,
+                private store: TodoService) {
     }
 
     ngOnInit(): void {
-        this.todoList = this.service.getTodoList();
+        this.todoList$ = this.query.selectAll();
+    }
+
+    itemTrackBy(index: number, item: Todo): ID {
+        return item.id;
     }
 
     drop(event: CdkDragDrop<Todo[]>): void {
-        moveItemInArray(this.todoList, event.previousIndex, event.currentIndex);
-        this.service.setTodoList(this.todoList);
+        this.store.move(event.previousIndex, event.currentIndex);
     }
 
-    deleteItem(index: number): void {
-        this.todoList.splice(index, 1);
-        this.service.setTodoList(this.todoList);
+    createItem(todo: Todo): void {
+        todo.id = new Date().getTime();
+        this.store.add(todo)
     }
 
-    openDialog(text: string, index: number): void {
+    editTodo(todo: Todo): void {
+        this.store.edit(todo)
+    }
+
+    deleteTodo(todoId: ID): void {
+        this.store.delete(todoId);
+    }
+
+    openDialog(todo?: Todo): void {
         const dialogRef = this.dialog.open(DialogComponent, {
             width: '480px',
-            data: {text}
+            data: {...todo}
         });
 
-        dialogRef.afterClosed().subscribe((res: string) => {
+        dialogRef.afterClosed().subscribe((res: Todo) => {
             if (!res) {
                 return;
             }
 
-            if (this.todoList[index]) {
-                this.todoList[index].text = res;
+            if (res.id) {
+                this.editTodo(res);
             } else {
-                this.todoList.push({
-                    id: new Date().getTime(),
-                    text: res,
-                    checked: false
-                });
+                this.createItem(res);
             }
-
-            this.service.setTodoList(this.todoList);
         });
     }
 }
