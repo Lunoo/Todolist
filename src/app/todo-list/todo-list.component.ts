@@ -27,7 +27,7 @@ export class TodoListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.todoList$ = this.query.selectAll();
+        this.todoList$ = this.query.todoList$;
     }
 
     itemTrackBy(index: number, item: Todo): ID {
@@ -39,12 +39,11 @@ export class TodoListComponent implements OnInit {
     }
 
     createItem(todo: Todo): void {
-        todo.id = new Date().getTime();
-        this.store.add(todo)
+        this.store.add(todo);
     }
 
     editTodo(todo: Todo): void {
-        this.store.edit(todo)
+        this.store.edit(todo);
     }
 
     deleteTodo(todoId: ID): void {

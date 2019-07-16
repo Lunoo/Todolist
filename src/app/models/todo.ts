@@ -5,9 +5,9 @@ export class Todo {
     title: string;
     completed: boolean;
 
-    constructor(data = {} as Todo) {
-        this.id = data.id;
-        this.title = data.title || '';
-        this.completed = data.completed || false;
+    constructor({id, title, completed = false} = {} as Todo) {
+        this.id = id;
+        this.title = title;
+        this.completed = completed;
     }
 }

@@ -10,11 +10,9 @@ import { Todo } from '../../models/todo';
 export class DialogComponent {
     @Input() todo: Todo;
 
-    constructor(
-        private dialogRef: MatDialogRef<DialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: Todo
-    ) {
-        this.todo = data.id ? data : new Todo();
+    constructor(@Inject(MAT_DIALOG_DATA) public data: Todo,
+                private dialogRef: MatDialogRef<DialogComponent>) {
+        this.todo = new Todo(data);
     }
 
     save(): void {

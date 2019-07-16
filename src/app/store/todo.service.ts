@@ -1,36 +1,49 @@
 import { Injectable } from '@angular/core';
-import { ID } from '@datorama/akita';
+import { guid, ID, transaction } from '@datorama/akita';
 
 import { Todo } from '../models/todo';
-import { TodoQuery } from './todo.query';
 import { TodoStore } from './todo.store';
-import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TodoService {
-    constructor(private localStorage: LocalStorageService,
-                private todoStore: TodoStore,
-                private query: TodoQuery) {
-        this.query.selectAll().subscribe((list) => {
-           this.localStorage.setTodoList(list);
-        });
+    constructor(private todoStore: TodoStore) {
     }
 
-    add(todo: Todo): void {
-        this.todoStore.add(todo);
+    @transaction()
+    add({title}: Todo): void {
+        const newTodo = {
+            id: guid(),
+            completed: false,
+            title
+        } as Todo;
+
+        this.todoStore.add(newTodo);
+        this.addCreatedDate();
     }
 
+    @transaction()
     edit(todo: Todo): void {
         this.todoStore.update(todo.id, todo);
+        this.addCreatedDate();
     }
 
+    @transaction()
     delete(id: ID): void {
         this.todoStore.remove(id);
+        this.addCreatedDate();
     }
 
+    @transaction()
     move(from: number, to: number): void {
         this.todoStore.move(from, to);
+        this.addCreatedDate();
+    }
+
+    private addCreatedDate(): void {
+        this.todoStore.update({
+            created: new Date().toISOString()
+        });
     }
 }

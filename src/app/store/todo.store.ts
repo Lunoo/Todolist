@@ -2,21 +2,22 @@ import { Injectable } from '@angular/core';
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
 
 import { Todo } from '../models/todo';
-import { LocalStorageService } from './local-storage.service';
 
 export interface TodoState extends EntityState<Todo> {
+    created: string;
 }
 
 @Injectable({providedIn: 'root'})
 @StoreConfig({name: 'todo'})
 export class TodoStore extends EntityStore<TodoState, Todo> {
-    constructor(private localStorage: LocalStorageService) {
+    constructor() {
         super();
         this.setInitialState();
     }
 
     setInitialState(): void {
-        const todoList = this.localStorage.getTodoList();
-        this.set(todoList);
+        const todoStateStr = localStorage.getItem('TodoList');
+        const todoState: TodoState = JSON.parse(todoStateStr) || {};
+        this.set(todoState.todo);
     }
 }
