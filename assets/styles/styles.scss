@@ -3,20 +3,20 @@
 @import "material";
 
 body {
-	display: flex;
-	height: 100vh;
-	margin: 0;
+	box-sizing: border-box;
 	background: linear-gradient(to right, $dark-blue, $light-blue, rgb(36, 36, 62));
+	display: flex;
+	min-height: 100vh;
+	margin: 0;
+	padding: 10px 20px;
+	overflow-x: hidden;
 }
 
 todo-root {
 	display: block;
 	margin: auto;
-}
-
-.todo-list {
+	max-width: calc(100% - 128px);
 	width: 500px;
-	max-width: 100%;
 }
 
 todo-item {
@@ -102,5 +102,19 @@ button.todo-button {
 	.mat-checkbox-checked .mat-checkbox-label {
 		background-size: 100% 2px;
 		opacity: .5;
+	}
+}
+
+action-bar {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: space-between;
+	margin: 10px;
+	
+	.mat-button {
+		background-color: white;
 	}
 }
