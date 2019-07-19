@@ -4,10 +4,10 @@ import { StateHistoryPlugin } from '@datorama/akita';
 import { TodoQuery } from '../store/todo.query';
 
 @Component({
-    selector: 'action-bar',
-    templateUrl: './action-bar.component.html'
+    selector: 'todo-menu',
+    templateUrl: './menu-bar.component.html'
 })
-export class ActionBarComponent {
+export class MenuBarComponent {
     history: StateHistoryPlugin;
 
     constructor(private query: TodoQuery) {

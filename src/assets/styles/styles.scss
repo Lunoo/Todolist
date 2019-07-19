@@ -15,7 +15,7 @@ body {
 todo-root {
 	display: block;
 	margin: auto;
-	max-width: calc(100% - 128px);
+	max-width: 100%;
 	width: 500px;
 }
 
@@ -25,14 +25,20 @@ todo-item {
 	margin-bottom: 5px;
 	
 	&:first-child {
-		border-radius: 4px 4px 0 0;
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
+	}
+	
+	&:last-child {
+		border-bottom-left-radius: 4px;
+		border-bottom-right-radius: 4px;
 	}
 }
 
 button.todo-button {
 	width: 100%;
 	background: white;
-	border-radius: 0 0 4px 4px;
+	border-radius: 4px;
 }
 
 .todo-item {
@@ -105,14 +111,14 @@ button.todo-button {
 	}
 }
 
-action-bar {
+todo-menu {
 	position: fixed;
-	bottom: 0;
+	top: 0;
 	left: 0;
 	right: 0;
 	display: flex;
-	justify-content: space-between;
-	margin: 10px;
+	//justify-content: space-between;
+	margin: 20px;
 	
 	.mat-button {
 		background-color: white;
