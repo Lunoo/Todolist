@@ -7,7 +7,7 @@
     "test": "ng test --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build": "ng build --prod --base-href https://zeratulis.github.io/Todolist/",
+    "build": "ng build --prod --base-href https://lunoo.github.io/Todolist/",
     "publish": "ngh"
   },
   "private": true,
