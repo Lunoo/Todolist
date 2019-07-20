@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { StateHistoryPlugin } from '@datorama/akita';
 
 import { TodoQuery } from '../store/todo.query';
@@ -8,7 +8,11 @@ import { TodoQuery } from '../store/todo.query';
     templateUrl: './menu-bar.component.html'
 })
 export class MenuBarComponent {
+    @HostBinding('class.active') showMenu: boolean = true;
+
     history: StateHistoryPlugin;
+    user: boolean;
+    toggleButtonText: string = 'Hide menu';
 
     constructor(private query: TodoQuery) {
         this.history = new StateHistoryPlugin(this.query);
@@ -28,5 +32,10 @@ export class MenuBarComponent {
 
     next(): void {
         this.history.redo();
+    }
+
+    toggleMenu(): void {
+        this.showMenu = !this.showMenu;
+        this.toggleButtonText = this.showMenu ? 'Hide menu' : 'Show menu';
     }
 }

@@ -34,3 +34,23 @@
 		background-color: $light-blue;
 	}
 }
+
+div.mat-slide-toggle-bar {
+	background-color: rgba(255, 255, 255, .38);
+	height: 15px;
+}
+
+.mat-slide-toggle.mat-checked {
+	.mat-slide-toggle-thumb {
+		background-color: #fafafa;
+	}
+	
+	.mat-slide-toggle-bar {
+		background-color: rgba(255, 255, 255, .38);
+	}
+}
+
+.mat-tooltip {
+	margin: 0 10px !important;
+	font-size: 10px;
+}
