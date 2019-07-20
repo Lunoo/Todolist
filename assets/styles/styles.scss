@@ -8,7 +8,7 @@ body {
 	display: flex;
 	min-height: 100vh;
 	margin: 0;
-	padding: 10px 20px;
+	padding: 10px $body-padding;
 	overflow-x: hidden;
 }
 
@@ -18,6 +18,18 @@ todo-root {
 	max-width: 100%;
 	width: 500px;
 }
+
+todo-list {
+	display: block;
+	margin-top: 0;
+	transition: margin-top 90ms $transition;
+	
+	todo-menu.active + & {
+		margin-top: 56px;
+	}
+}
+
+// Items styles
 
 todo-item {
 	display: block;
@@ -35,63 +47,68 @@ todo-item {
 	}
 }
 
-button.todo-button {
+button.todo-add {
 	width: 100%;
 	background: white;
 	border-radius: 4px;
 }
 
 .todo-item {
-	position: relative;
-	padding: 5px 60px 0 30px;
+	display: flex;
+	padding: 15px 5px 15px 30px;
 	font-size: 14px;
 	color: rgba(0, 0, 0, 0.87);
 	cursor: move;
 	
-	&:hover .material-icons {
+	&:hover .mat-button {
 		opacity: .5;
 	}
 }
 
 .todo-item-actions {
-	position: absolute;
-	top: 20px;
-	right: 10px;
+	white-space: nowrap;
 	
-	.mat-icon {
-		width: 18px;
-		height: 18px;
-		font-size: 18px;
+	.mat-button {
+		min-width: 30px;
+		padding: 0;
+		line-height: $todo-line-height;
 		opacity: 0;
 		transition: opacity 90ms $transition;
-		cursor: pointer;
-		z-index: 1;
 		
 		&:hover {
 			opacity: 1;
 		}
 	}
+	
+	.mat-icon {
+		width: 18px;
+		height: 18px;
+		font-size: 18px;
+		cursor: pointer;
+		z-index: 1;
+		
+	}
 }
 
 .todo-checkbox {
-	padding: 16.41px 0 23.56px;
+	width: 100%;
 	
 	.mat-checkbox-layout {
 		position: relative;
 		display: inline-block;
-		line-height: 1.125;
+		line-height: $todo-line-height;
 	}
 	
 	.mat-checkbox-inner-container {
 		position: absolute;
 		left: -20px;
-		top: -1px;
+		top: 3px;
 	}
 	
 	.mat-checkbox-label {
 		white-space: pre-wrap;
 		word-break: break-word;
-		line-height: 1.125;
+		line-height: $todo-line-height;
 		opacity: 1;
 		
 		background-image: linear-gradient(currentColor, currentColor);
@@ -111,16 +128,56 @@ button.todo-button {
 	}
 }
 
+// Menu styles
+
 todo-menu {
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
-	display: flex;
-	//justify-content: space-between;
-	margin: 20px;
+	background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+	transform: translateY(calc(-100% + 10px));
+	transition: transform 90ms $transition;
+	z-index: 1;
+	
+	&.active {
+		transform: translateY(0);
+	}
 	
 	.mat-button {
-		background-color: white;
+		color: white;
+		
+		&[disabled][disabled] {
+			color: rgba(white, .26);
+		}
 	}
+	
+	.mat-button .mat-ripple-element {
+		background-color: white !important;
+	}
+}
+
+button.menu-toggle{
+	position: absolute;
+	bottom: -24px;
+	right: 0;
+	height: 24px;
+	line-height: initial;
+	background: #24243e;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 0 11px 15px -7px rgba(0, 0, 0, .2),
+				0 24px 38px 3px rgba(0, 0, 0, .14),
+				0 9px 46px 8px rgba(0, 0, 0, .12);
+}
+
+.menu-content {
+	display: flex;
+	padding: 10px 0;
+	box-shadow: 0 11px 15px -7px rgba(0, 0, 0, .2),
+				0 24px 38px 3px rgba(0, 0, 0, .14),
+				0 9px 46px 8px rgba(0, 0, 0, .12);
+}
+
+.menu-history {
+	margin-right: auto;
 }
