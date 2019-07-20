@@ -7,6 +7,7 @@ import {
     MatDialogModule,
     MatIconModule,
     MatInputModule,
+    MatListModule,
     MatSlideToggleModule,
     MatTooltipModule
 } from '@angular/material';
@@ -20,6 +21,7 @@ import {
         MatDialogModule,
         MatIconModule,
         MatInputModule,
+        MatListModule,
         MatSlideToggleModule,
         MatTooltipModule,
     ]

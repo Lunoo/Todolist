@@ -5,13 +5,13 @@ import { Todo } from '../../models/todo';
 
 @Component({
     selector: 'todo-dialog',
-    templateUrl: './dialog.component.html'
+    templateUrl: './todo-dialog.component.html'
 })
-export class DialogComponent {
+export class TodoDialogComponent {
     @Input() todo: Todo;
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: Todo,
-                private dialogRef: MatDialogRef<DialogComponent>) {
+                private dialogRef: MatDialogRef<TodoDialogComponent>) {
         this.todo = new Todo(data);
     }
 

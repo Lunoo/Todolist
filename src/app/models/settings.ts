@@ -1,6 +1,13 @@
+export type Theme = 'dark' | 'light';
+
 export class Settings {
-    synchronize: boolean;
     showMenu: boolean;
-    theme: 'dark' | 'light';
-    listType: '1' | 'a' | 'A' | 'i' | 'I' | null;
+    synchronize: boolean;
+    theme: Theme;
+
+    constructor({showMenu = false, synchronize = false, theme = 'dark'} = {}) {
+        this.showMenu = showMenu;
+        this.synchronize = synchronize;
+        this.theme = theme as Theme;
+    }
 }

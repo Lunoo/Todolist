@@ -9,8 +9,6 @@
     "arrow-parens": false,
     "component-selector": [
       true,
-      "element",
-      "todo",
       "kebab-case"
     ],
     "deprecation": {
@@ -73,9 +71,9 @@
     "quotemark": false,
     "trailing-comma": false,
     "no-output-on-prefix": true,
-    "use-input-property-decorator": true,
-    "use-output-property-decorator": true,
-    "use-host-property-decorator": true,
+    "use-input-property-decorator": false,
+    "use-output-property-decorator": false,
+    "use-host-property-decorator": false,
     "no-output-rename": true,
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,

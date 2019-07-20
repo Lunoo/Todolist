@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { guid, ID, transaction } from '@datorama/akita';
 
-import { Todo } from '../models/todo';
+import { Todo } from '../../models/todo';
 import { TodoStore } from './todo.store';
 
 @Injectable({

@@ -1,7 +1,11 @@
 import { Component, HostBinding } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { StateHistoryPlugin } from '@datorama/akita';
 
-import { TodoQuery } from '../store/todo.query';
+import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
+import { SettingsService } from '../store/settings/settings.service';
+import { SettingsQuery } from '../store/settings/settings.query';
+import { TodoQuery } from '../store/todo/todo.query';
 
 @Component({
     selector: 'todo-menu',
@@ -12,10 +16,16 @@ export class MenuBarComponent {
 
     history: StateHistoryPlugin;
     user: boolean;
-    toggleButtonText: string = 'Hide menu';
 
-    constructor(private query: TodoQuery) {
-        this.history = new StateHistoryPlugin(this.query);
+    constructor(private dialog: MatDialog,
+                private settingsService: SettingsService,
+                private settingsQuery: SettingsQuery,
+                private todoQuery: TodoQuery) {
+        this.history = new StateHistoryPlugin(this.todoQuery);
+
+        this.settingsQuery.showMenu$.subscribe(show => {
+            this.showMenu = show;
+        });
     }
 
     hasFuture(): boolean {
@@ -34,8 +44,15 @@ export class MenuBarComponent {
         this.history.redo();
     }
 
+    openSettingsDialog(): void {
+        this.dialog.open(SettingsDialogComponent, {
+            width: '480px'
+        });
+    }
+
     toggleMenu(): void {
-        this.showMenu = !this.showMenu;
-        this.toggleButtonText = this.showMenu ? 'Hide menu' : 'Show menu';
+        this.settingsService.update({
+            showMenu: !this.showMenu
+        });
     }
 }

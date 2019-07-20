@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Settings</h1>
+
+<div mat-dialog-content>
+    <mat-list role="list">
+        <mat-list-item role="listitem">
+            <mat-slide-toggle
+                disabled
+                [checked]="synchronize$ | async"
+                (change)="onSynchronizeChange($event.checked)">
+                Synchronize all devices
+            </mat-slide-toggle>
+        </mat-list-item>
+
+        <mat-list-item role="listitem">
+            <mat-slide-toggle
+                disabled
+                [checked]="(theme$ | async) === 'dark'"
+                (change)="onThemeChange($event.checked ? 'dark' : 'light')">
+                {{theme$ | async | titlecase}} theme
+            </mat-slide-toggle>
+        </mat-list-item>
+    </mat-list>
+</div>

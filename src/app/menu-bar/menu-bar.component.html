@@ -13,7 +13,7 @@
         </button>
     </div>
 
-    <button mat-button>
+    <button mat-button (click)="openSettingsDialog()">
         <mat-icon>settings</mat-icon>
     </button>
 
@@ -22,8 +22,8 @@
     </button>
 </div>
 
-<button class="menu-toggle" mat-button
-        [matTooltip]="toggleButtonText" matTooltipPosition="left"
+<button class="menu-toggle" mat-button matTooltipPosition="left"
+        [matTooltip]="showMenu ? 'Hide menu' : 'Show menu'"
         (click)="toggleMenu()">
     <mat-icon>{{showMenu ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
 </button>
