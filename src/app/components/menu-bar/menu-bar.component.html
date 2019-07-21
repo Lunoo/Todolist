@@ -1,28 +1,34 @@
 <div class="menu-content">
     <div class="menu-history">
         <button mat-button
+                [matTooltip]="'Undo'"
                 [disabled]="!hasPast()"
                 (click)="back()">
             <mat-icon>arrow_back</mat-icon>
         </button>
 
         <button mat-button
+                [matTooltip]="'Redo'"
                 [disabled]="!hasFuture()"
                 (click)="next()">
             <mat-icon>arrow_forward</mat-icon>
         </button>
     </div>
 
-    <button mat-button (click)="openSettingsDialog()">
+    <button mat-button
+            [matTooltip]="'Settings'"
+            (click)="openSettingsDialog()">
         <mat-icon>settings</mat-icon>
     </button>
 
-    <button mat-button (click)="user = !user">
+    <button mat-button
+            [matTooltip]="user ? 'Sign out' : 'Sign in'"
+            (click)="user = !user">
         <mat-icon>{{user ? 'person' : 'person_outline'}}</mat-icon>
     </button>
 </div>
 
-<button class="menu-toggle" mat-button matTooltipPosition="left" matTooltipHideDelay="100000"
+<button class="menu-toggle" mat-button
         [matTooltip]="showMenu ? 'Hide menu' : 'Show menu'"
         (click)="toggleMenu()">
     <mat-icon>{{showMenu ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
