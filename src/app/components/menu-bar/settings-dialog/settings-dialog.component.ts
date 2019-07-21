@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Theme } from '../../models/settings';
-import { SettingsService } from '../../store/settings/settings.service';
-import { SettingsQuery } from '../../store/settings/settings.query';
+import { Theme } from '../../../models/settings';
+import { SettingsQuery, SettingsService } from '../../../store';
 
 @Component({
     selector: 'settings-dialog',

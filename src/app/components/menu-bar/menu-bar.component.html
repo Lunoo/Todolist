@@ -22,7 +22,7 @@
     </button>
 </div>
 
-<button class="menu-toggle" mat-button matTooltipPosition="left"
+<button class="menu-toggle" mat-button matTooltipPosition="left" matTooltipHideDelay="100000"
         [matTooltip]="showMenu ? 'Hide menu' : 'Show menu'"
         (click)="toggleMenu()">
     <mat-icon>{{showMenu ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>

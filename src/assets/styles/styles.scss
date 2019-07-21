@@ -2,6 +2,14 @@
 @import "variables";
 @import "material";
 
+html {
+	font-size: 16px;
+	
+	@media (max-width: 500px) {
+		font-size: 13px;
+	}
+}
+
 body {
 	box-sizing: border-box;
 	background: linear-gradient(to right, $dark-blue, $light-blue, rgb(36, 36, 62));
@@ -56,12 +64,12 @@ button.todo-add {
 .todo-item {
 	display: flex;
 	padding: 15px 5px 15px 30px;
-	font-size: 14px;
+	font-size: $font-size;
 	color: rgba(0, 0, 0, 0.87);
 	cursor: move;
 	
 	&:hover .mat-button {
-		opacity: .5;
+		opacity: 1;
 	}
 }
 
@@ -74,19 +82,15 @@ button.todo-add {
 		line-height: $todo-line-height;
 		opacity: 0;
 		transition: opacity 90ms $transition;
-		
-		&:hover {
-			opacity: 1;
-		}
 	}
 	
 	.mat-icon {
 		width: 18px;
 		height: 18px;
 		font-size: 18px;
+		color: $dark-blue;
 		cursor: pointer;
 		z-index: 1;
-		
 	}
 }
 
@@ -96,13 +100,16 @@ button.todo-add {
 	.mat-checkbox-layout {
 		position: relative;
 		display: inline-block;
-		line-height: $todo-line-height;
 	}
 	
 	.mat-checkbox-inner-container {
 		position: absolute;
 		left: -20px;
-		top: 3px;
+		top: 2px;
+		
+		@media (max-width: 500px) {
+			top: 0;
+		}
 	}
 	
 	.mat-checkbox-label {

@@ -3,9 +3,7 @@ import { MatDialog } from '@angular/material';
 import { StateHistoryPlugin } from '@datorama/akita';
 
 import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
-import { SettingsService } from '../store/settings/settings.service';
-import { SettingsQuery } from '../store/settings/settings.query';
-import { TodoQuery } from '../store/todo/todo.query';
+import { SettingsQuery, SettingsService, TodoQuery } from '../../store';
 
 @Component({
     selector: 'todo-menu',
@@ -45,9 +43,7 @@ export class MenuBarComponent {
     }
 
     openSettingsDialog(): void {
-        this.dialog.open(SettingsDialogComponent, {
-            width: '480px'
-        });
+        this.dialog.open(SettingsDialogComponent);
     }
 
     toggleMenu(): void {

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ID } from '@datorama/akita';
 
-import { Todo } from '../../models/todo';
+import { Todo } from '../../../models/todo';
 
 @Component({
     selector: 'todo-item',

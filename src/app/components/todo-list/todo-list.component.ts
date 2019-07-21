@@ -4,11 +4,10 @@ import { MatDialog } from '@angular/material';
 import { ID } from '@datorama/akita';
 import { Observable } from 'rxjs';
 
-import { Todo } from '../models/todo';
+import { Todo } from '../../models/todo';
 import { todoAnimation } from './todo.animation';
 import { TodoDialogComponent } from './todo-dialog/todo-dialog.component';
-import { TodoQuery } from '../store/todo/todo.query';
-import { TodoService } from '../store/todo/todo.service';
+import { TodoQuery, TodoService } from '../../store';
 
 @Component({
     selector: 'todo-list',
@@ -52,7 +51,6 @@ export class TodoListComponent implements OnInit {
 
     openDialog(todo?: Todo): void {
         const dialogRef = this.dialog.open(TodoDialogComponent, {
-            width: '480px',
             data: {...todo}
         });
 

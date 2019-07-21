@@ -7,6 +7,6 @@
 </div>
 
 <div mat-dialog-actions>
-    <button mat-button (click)="cancel()">Cancel</button>
     <button mat-button (click)="save()" [disabled]="!todo.title || !todo.title.trim()">Save</button>
+    <button mat-button (click)="cancel()">Cancel</button>
 </div>
