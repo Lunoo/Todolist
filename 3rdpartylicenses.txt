@@ -89,15 +89,11 @@ THE SOFTWARE.
 
 @angular/material/checkbox
 
-@angular/material/core
-
 @angular/material/dialog
 
 @angular/material/form-field
 
 @angular/material/icon
-
-@angular/material/list
 
 @angular/material/slide-toggle
 
