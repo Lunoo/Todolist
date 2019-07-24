@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material';
 import { StateHistoryPlugin } from '@datorama/akita';
 
 import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
-import { SettingsQuery, SettingsService, TodoQuery } from '../../store';
+import { SettingsQuery, SettingsService, TodoQuery } from '../../core/store';
 
 @Component({
     selector: 'todo-menu',

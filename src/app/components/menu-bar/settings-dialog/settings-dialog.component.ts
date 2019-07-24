@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Theme } from '../../../models/settings';
-import { SettingsQuery, SettingsService } from '../../../store';
+import { SettingsQuery, SettingsService } from '../../../core/store';
 
 @Component({
     selector: 'settings-dialog',

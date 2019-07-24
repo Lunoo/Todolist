@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 import { Todo } from '../../models/todo';
 import { todoAnimation } from './todo.animation';
 import { TodoDialogComponent } from './todo-dialog/todo-dialog.component';
-import { TodoQuery, TodoService } from '../../store';
+import { TodoQuery, TodoService } from '../../core/store';
+import { TodoBaseService } from '../../core/todo-base.service';
 
 @Component({
     selector: 'todo-list',
@@ -21,6 +22,7 @@ export class TodoListComponent implements OnInit {
     todoList$: Observable<Todo[]>;
 
     constructor(private dialog: MatDialog,
+                private base: TodoBaseService,
                 private query: TodoQuery,
                 private store: TodoService) {
     }

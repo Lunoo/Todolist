@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { guid, ID, transaction } from '@datorama/akita';
 
-import { Todo } from '../../models/todo';
-import { TodoStore } from './todo.store';
+import { Todo } from '../../../models/todo';
+import { TodoState, TodoStore } from './todo.store';
 
 @Injectable({
     providedIn: 'root'
@@ -44,6 +44,14 @@ export class TodoService {
     private addCreatedDate(): void {
         this.todoStore.update({
             created: new Date().toISOString()
+        });
+    }
+
+    @transaction()
+    setState(state: TodoState) {
+        this.todoStore.set(state.entities);
+        this.todoStore.update({
+            created: state.created
         });
     }
 }

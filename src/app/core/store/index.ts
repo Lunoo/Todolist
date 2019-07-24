@@ -3,7 +3,7 @@ import { SettingsService } from './settings/settings.service';
 import { SettingsStore } from './settings/settings.store';
 import { TodoQuery } from './todo/todo.query';
 import { TodoService } from './todo/todo.service';
-import { TodoStore } from './todo/todo.store';
+import { TodoStore, TodoState } from './todo/todo.store';
 
 export {
     SettingsQuery,
@@ -11,5 +11,6 @@ export {
     SettingsStore,
     TodoQuery,
     TodoService,
+    TodoState,
     TodoStore,
 };
