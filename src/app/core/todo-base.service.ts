@@ -14,7 +14,7 @@ const TIME_DELAY = 10 * 1000;
 })
 export class TodoBaseService {
     serverTodoState: any;
-    subs: Subscription;
+    subs: Subscription = new Subscription();
     timeout: any;
 
     private todoDoc: AngularFirestoreDocument<TodoState>;
