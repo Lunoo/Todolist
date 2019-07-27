@@ -8,7 +8,6 @@
     </mat-slide-toggle>
 
     <mat-slide-toggle
-        disabled
         [checked]="(theme$ | async) === 'dark'"
         (change)="onThemeChange(!$event.checked ? 'basic' : 'dark')">
         {{theme$ | async | titlecase}} theme

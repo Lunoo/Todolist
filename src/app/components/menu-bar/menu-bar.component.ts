@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { StateHistoryPlugin } from '@datorama/akita';
 
@@ -10,7 +10,7 @@ import { SettingsQuery, SettingsService, TodoQuery } from '../../core/store';
     templateUrl: './menu-bar.component.html'
 })
 export class MenuBarComponent {
-    @HostBinding('class.active') showMenu: boolean = true;
+    showMenu: boolean = true;
 
     history: StateHistoryPlugin;
     user: boolean;

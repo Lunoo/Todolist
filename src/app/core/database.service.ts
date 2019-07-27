@@ -8,7 +8,7 @@ import { OnlineService } from './online.service';
 import { SettingsQuery, TodoQuery, TodoService, TodoState } from './store';
 import { Todo } from '../models/todo';
 
-const TIME_DELAY = 5 * 1000;
+const TIME_DELAY = 30 * 1000;
 
 @Injectable({
     providedIn: 'root'
