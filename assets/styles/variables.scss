@@ -1,9 +1,22 @@
 $body-padding: 20px;
 
-$dark-blue: rgb(15, 12, 41);
-$light-blue: rgb(48, 43, 99);
+$box-shadow: 0 11px 15px -7px rgba(0, 0, 0, .2),
+			 0 24px 38px 3px rgba(0, 0, 0, .14),
+			 0 9px 46px 8px rgba(0, 0, 0, .12);
 
 $font-size: 1rem;
 $todo-line-height: 1.4;
 
 $transition: cubic-bezier(0, 0, .2, .1);
+
+// Basic theme
+$dark-blue: rgb(15, 12, 41);
+$light-blue: rgb(48, 43, 99);
+$snackbar-bg: #24243e;
+
+// Dark theme
+
+$icon-color: #5e55c2;
+$bg-color: #121212;
+$todo-color: #1e1e1e;
+$font-color: #a5a5a5;

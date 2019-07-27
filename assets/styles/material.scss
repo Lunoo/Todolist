@@ -1,18 +1,7 @@
-.mat-checkbox-checked.mat-accent .mat-checkbox-background,
-.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-	background-color: $dark-blue;
-}
-
-.mat-ripple-element {
-	background-color: rgba($light-blue, 0.5) !important;
-}
-
 .cdk-drag-preview {
-	box-sizing: border-box;
 	border-radius: 4px;
-	box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-	0 8px 10px 1px rgba(0, 0, 0, 0.14),
-	0 3px 14px 2px rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	box-shadow: $box-shadow;
 }
 
 .cdk-drag-placeholder {
@@ -29,10 +18,6 @@
 
 .mat-form-field {
 	width: 100%;
-	
-	&.mat-focused .mat-form-field-ripple {
-		background-color: $light-blue;
-	}
 }
 
 .mat-dialog-content {
@@ -42,16 +27,6 @@
 .mat-slide-toggle {
 	margin: 10px 0;
 	width: 100%;
-	
-	&.mat-checked {
-		.mat-slide-toggle-thumb {
-			background-color: $light-blue;
-		}
-		
-		.mat-slide-toggle-bar {
-			background-color: rgba($light-blue, .6);
-		}
-	}
 }
 
 .mat-tooltip {
@@ -66,4 +41,136 @@
 .cdk-overlay-pane:not(.mat-tooltip-panel) {
 	max-width: calc(100vw - 80px) !important;
 	width: 460px !important;
+}
+
+.mat-snack-bar-container {
+	&.todo-error {
+		background-color: #d32f2f;
+		color: #fff;
+		
+		.dark-theme & {
+			background-color: #cf6679;
+			color: #000;
+		}
+	}
+	
+	&.todo-success {
+		background: $snackbar-bg;
+	}
+}
+
+.theme-basic {
+	.mat-ripple-element {
+		background-color: rgba($light-blue, 0.5) !important;
+	}
+	
+	.mat-checkbox-frame {
+		border-color: #a5a5a5;
+	}
+	
+	.mat-checkbox-checked.mat-accent .mat-checkbox-background,
+	.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+		background-color: $light-blue;
+	}
+	
+	.mat-form-field.mat-focused .mat-form-field-ripple {
+		background-color: $light-blue;
+	}
+	
+	.mat-slide-toggle {
+		&.mat-checked {
+			.mat-slide-toggle-thumb {
+				background-color: $light-blue;
+			}
+			
+			.mat-slide-toggle-bar {
+				background-color: rgba($light-blue, .6);
+			}
+		}
+	}
+	
+	.mat-snack-bar-container {
+		&.todo-error {
+			background-color: #d32f2f;
+			color: #fff;
+		}
+		
+		&.todo-success {
+			background: $snackbar-bg;
+		}
+	}
+}
+
+.theme-dark {
+	.mat-ripple-element {
+		background-color: rgba(255, 255, 255, 0.5) !important;
+	}
+	
+	.mat-checkbox-frame {
+		border-color: #838383
+	}
+	
+	.mat-checkbox-checked.mat-accent .mat-checkbox-background,
+	.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+		background-color: $icon-color;
+	}
+	
+	.mat-checkbox-checkmark-path {
+		stroke: $todo-color !important;
+	}
+	
+	.mat-dialog-container {
+		background: $todo-color;
+		color: $font-color;
+	}
+	
+	.mat-button {
+		&:hover:not([disabled]) .mat-button-focus-overlay {
+			opacity: 0.1;
+			background: #fff;
+		}
+		
+		&[disabled] {
+			color: rgba(255, 255, 255, .26);
+		}
+	}
+	
+	.mat-slide-toggle {
+		.mat-slide-toggle-thumb {
+			background-color: $font-color;
+		}
+		
+		.mat-slide-toggle-bar {
+			background-color: rgba(#838383, .6);
+		}
+		
+		&.mat-checked {
+			.mat-slide-toggle-thumb {
+				background-color: $icon-color;
+			}
+			
+			.mat-slide-toggle-bar {
+				background-color: rgba($icon-color, .6);
+			}
+		}
+	}
+	
+	.mat-form-field.mat-focused .mat-form-field-ripple {
+		background-color: $font-color;
+	}
+	
+	.mat-input-element {
+		caret-color: $font-color;
+	}
+	
+	.mat-snack-bar-container {
+		&.todo-error {
+			background-color: #cf6679;
+			color: #000;
+		}
+		
+		&.todo-success {
+			background: #323232;
+		}
+	}
 }
