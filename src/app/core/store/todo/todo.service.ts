@@ -48,10 +48,8 @@ export class TodoService {
     }
 
     @transaction()
-    setState(state: TodoState) {
-        this.todoStore.set(state.entities);
-        this.todoStore.update({
-            created: state.created
-        });
+    setState({created, entities}: Partial<TodoState>) {
+        this.todoStore.set(entities);
+        this.todoStore.update({created});
     }
 }

@@ -38,4 +38,4 @@ npm-debug.log
 Thumbs.db
 
 # settings
-**/environments/
+environments/

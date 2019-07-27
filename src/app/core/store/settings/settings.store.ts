@@ -3,7 +3,7 @@ import { Store, StoreConfig } from '@datorama/akita';
 
 import { Settings } from '../../../models/settings';
 
-export function createInitialState(): Settings {
+function createInitialState(): Settings {
     return new Settings();
 }
 

@@ -1,6 +1,6 @@
 .mat-checkbox-checked.mat-accent .mat-checkbox-background,
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-	background-color: $dark-blue;
+	background-color: $light-blue;
 }
 
 .mat-ripple-element {
@@ -66,4 +66,20 @@
 .cdk-overlay-pane:not(.mat-tooltip-panel) {
 	max-width: calc(100vw - 80px) !important;
 	width: 460px !important;
+}
+
+.mat-snack-bar-container {
+	&.todo-error {
+		background-color: #d32f2f;
+		color: #fff;
+		
+		.dark-theme & {
+			background-color: #cf6679;
+			color: #000;
+		}
+	}
+	
+	&.todo-success {
+		background: $snackbar-bg;
+	}
 }

@@ -10,8 +10,7 @@ import { SharedModule } from '../shared/shared.module';
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
         SharedModule,
-    ],
-    providers: []
+    ]
 })
 
 export class CoreModule {
