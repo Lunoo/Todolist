@@ -9,7 +9,7 @@
 
     <mat-slide-toggle
         [checked]="(theme$ | async) === 'dark'"
-        (change)="onThemeChange(!$event.checked ? 'basic' : 'dark')">
+        (change)="onThemeChange(!$event.checked ? 'light' : 'dark')">
         {{theme$ | async | titlecase}} theme
     </mat-slide-toggle>
 </div>

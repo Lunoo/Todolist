@@ -1,14 +1,31 @@
 import { Injectable } from '@angular/core';
-import { guid, ID, transaction } from '@datorama/akita';
+import { guid, ID, StateHistoryPlugin, transaction } from '@datorama/akita';
 
 import { Todo } from '../../../models/todo';
 import { TodoState, TodoStore } from './todo.store';
+import { TodoQuery } from './todo.query';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TodoService {
-    constructor(private todoStore: TodoStore) {
+    history: StateHistoryPlugin;
+
+    constructor(private todoStore: TodoStore,
+                private todoQuery: TodoQuery) {
+        this.history = new StateHistoryPlugin(this.todoQuery);
+    }
+
+    back(): void {
+        this.history.undo();
+        this.history.ignoreNext();
+        this.addCreatedDate();
+    }
+
+    next(): void {
+        this.history.redo();
+        this.history.ignoreNext();
+        this.addCreatedDate();
     }
 
     @transaction()
@@ -41,15 +58,15 @@ export class TodoService {
         this.addCreatedDate();
     }
 
+    @transaction()
+    setState({created, entities}: Partial<TodoState>): void {
+        this.todoStore.set(entities);
+        this.todoStore.update({created});
+    }
+
     private addCreatedDate(): void {
         this.todoStore.update({
             created: new Date().toISOString()
         });
-    }
-
-    @transaction()
-    setState({created, entities}: Partial<TodoState>) {
-        this.todoStore.set(entities);
-        this.todoStore.update({created});
     }
 }

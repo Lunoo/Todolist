@@ -13,10 +13,10 @@ import { TodoListModule } from './components/todo-list/todo-list.module';
         BrowserAnimationsModule,
         CoreModule,
         MenuBarModule,
-        TodoListModule,
+        TodoListModule
     ],
     declarations: [
-        AppComponent,
+        AppComponent
     ],
     bootstrap: [
         AppComponent

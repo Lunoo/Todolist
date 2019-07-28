@@ -25,6 +25,7 @@
             [matTooltip]="user ? 'Sign out' : 'Sign in'"
             (click)="user = !user">
         <mat-icon>{{user ? 'person' : 'person_outline'}}</mat-icon>
+        <span class="user-status user-{{(isOnline$ | async) ? 'online' : 'offline'}}"></span>
     </button>
 </div>
 

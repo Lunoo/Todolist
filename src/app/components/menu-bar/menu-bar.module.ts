@@ -6,7 +6,7 @@ import { SettingsDialogComponent } from './settings-dialog/settings-dialog.compo
 
 @NgModule({
     imports: [
-        SharedModule,
+        SharedModule
     ],
     declarations: [
         MenuBarComponent,

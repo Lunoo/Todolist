@@ -3,12 +3,12 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
+import { Todo } from '../models/todo';
 import { LogService } from './log.service';
 import { OnlineService } from './online.service';
 import { SettingsQuery, TodoQuery, TodoService, TodoState } from './store';
-import { Todo } from '../models/todo';
 
-const TIME_DELAY = 30 * 1000;
+const TIME_DELAY = 10 * 1000;
 
 @Injectable({
     providedIn: 'root'

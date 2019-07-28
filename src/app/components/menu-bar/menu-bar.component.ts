@@ -1,25 +1,26 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { StateHistoryPlugin } from '@datorama/akita';
+import { Observable } from 'rxjs';
 
 import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
-import { SettingsQuery, SettingsService, TodoQuery } from '../../core/store';
+import { SettingsQuery, SettingsService, TodoService } from '../../core/store';
+import { OnlineService } from '../../core/online.service';
 
 @Component({
     selector: 'todo-menu',
     templateUrl: './menu-bar.component.html'
 })
 export class MenuBarComponent {
+    isOnline$: Observable<boolean>;
     showMenu: boolean = true;
-
-    history: StateHistoryPlugin;
     user: boolean;
 
     constructor(private dialog: MatDialog,
+                private onlineService: OnlineService,
                 private settingsService: SettingsService,
                 private settingsQuery: SettingsQuery,
-                private todoQuery: TodoQuery) {
-        this.history = new StateHistoryPlugin(this.todoQuery);
+                private todoService: TodoService) {
+        this.isOnline$ = this.onlineService.isOnline$;
 
         this.settingsQuery.showMenu$.subscribe(show => {
             this.showMenu = show;
@@ -27,19 +28,19 @@ export class MenuBarComponent {
     }
 
     hasFuture(): boolean {
-        return this.history.hasFuture;
+        return this.todoService.history.hasFuture;
     }
 
     hasPast(): boolean {
-        return this.history.hasPast;
+        return this.todoService.history.hasPast;
     }
 
     back(): void {
-        this.history.undo();
+        this.todoService.back();
     }
 
     next(): void {
-        this.history.redo();
+        this.todoService.next();
     }
 
     openSettingsDialog(): void {

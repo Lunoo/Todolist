@@ -9,12 +9,12 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
 @NgModule({
     imports: [
         DragDropModule,
-        SharedModule,
+        SharedModule
     ],
     declarations: [
         TodoDialogComponent,
         TodoListComponent,
-        TodoItemComponent,
+        TodoItemComponent
     ],
     entryComponents: [
         TodoDialogComponent
