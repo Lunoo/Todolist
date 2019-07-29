@@ -19,7 +19,7 @@ body {
 	box-sizing: border-box;
 	display: flex;
 	min-height: 100vh;
-	padding: 10px $body-padding;
+	padding: 10px 20px;
 	transition: padding-top 90ms $transition;
 	
 	&.show-menu {
@@ -143,18 +143,6 @@ todo-menu {
 	.show-menu & {
 		transform: translateY(0);
 	}
-	
-	.mat-button {
-		color: white;
-		
-		&[disabled][disabled] {
-			color: rgba(white, .26);
-		}
-	}
-	
-	.mat-button .mat-ripple-element {
-		background-color: white !important;
-	}
 }
 
 button.menu-toggle {
@@ -183,7 +171,7 @@ button.menu-toggle {
 	right: 19px;
 	width: 8px;
 	height: 8px;
-	border: 2px solid $bg-color;
+	border: 2px solid;
 	border-radius: 50%;
 	
 	&.user-online {
@@ -191,7 +179,6 @@ button.menu-toggle {
 	}
 	
 	&.user-offline {
-		background-color: $bg-color;
 		box-shadow: inset 0 0 1px 2px #fff;
 	}
 }
@@ -204,11 +191,19 @@ button.menu-toggle {
 	}
 	
 	todo-menu {
-		background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+		background: linear-gradient(to right, $dark-blue, $light-blue, $snackbar-bg);
 	}
 	
 	button.menu-toggle {
-		background: #24243e;
+		background: $snackbar-bg;
+	}
+	
+	.user-status {
+		border-color: $snackbar-bg;
+		
+		&.user-offline {
+			background-color: $snackbar-bg;
+		}
 	}
 	
 	todo-item, button.todo-add {
@@ -236,6 +231,14 @@ button.menu-toggle {
 	
 	button.menu-toggle, button.todo-add {
 		background: $todo-color;
+	}
+	
+	.user-status {
+		border-color: $bg-color;
+		
+		&.user-offline {
+			background-color: $bg-color;
+		}
 	}
 	
 	todo-item {

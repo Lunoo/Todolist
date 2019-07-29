@@ -8,7 +8,7 @@ import { LogService } from './log.service';
 import { OnlineService } from './online.service';
 import { SettingsQuery, TodoQuery, TodoService, TodoState } from './store';
 
-const TIME_DELAY = 10 * 1000;
+const TIME_DELAY = 20 * 1000;
 
 @Injectable({
     providedIn: 'root'
@@ -64,7 +64,7 @@ export class DatabaseService {
 
     private checkUpdates(serverState: TodoState): void {
         const localState: TodoState = this.todoQuery.getValue();
-        if (!this.canCheck || !localState.created) {
+        if (!this.canCheck || (!localState.created && !serverState)) {
             return;
         }
 
@@ -74,7 +74,10 @@ export class DatabaseService {
             return;
         }
 
-        if (this.isLocalStateOutOfDate(localState.created, serverState.created) === true) {
+        if (
+            !localState.created
+            || this.isLocalStateOutOfDate(localState.created, serverState.created) === true
+        ) {
             // update local state
             this.updateLocal(serverState);
         } else if (this.isLocalStateOutOfDate(localState.created, serverState.created) === false) {

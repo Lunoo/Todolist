@@ -1,6 +1,5 @@
 .cdk-drag-preview {
 	border-radius: 4px;
-	box-sizing: border-box;
 	box-shadow: $box-shadow;
 }
 
@@ -57,6 +56,20 @@
 // Theme styles
 
 .theme-light {
+	todo-menu {
+		.mat-button {
+			color: white;
+			
+			&[disabled] {
+				color: rgba(255, 255, 255, .26);
+			}
+		}
+		
+		.mat-ripple-element {
+			background-color: white !important;
+		}
+	}
+	
 	.mat-ripple-element {
 		background-color: rgba($light-blue, 0.5) !important;
 	}
@@ -99,6 +112,17 @@
 }
 
 .theme-dark {
+	.mat-button {
+		&:hover:not([disabled]) .mat-button-focus-overlay {
+			opacity: 0.1;
+			background: #fff;
+		}
+		
+		&[disabled] {
+			color: rgba(255, 255, 255, .26);
+		}
+	}
+	
 	.mat-ripple-element {
 		background-color: rgba(255, 255, 255, 0.5) !important;
 	}
@@ -119,17 +143,6 @@
 	.mat-dialog-container {
 		background: $todo-color;
 		color: $font-color;
-	}
-	
-	.mat-button {
-		&:hover:not([disabled]) .mat-button-focus-overlay {
-			opacity: 0.1;
-			background: #fff;
-		}
-		
-		&[disabled] {
-			color: rgba(255, 255, 255, .26);
-		}
 	}
 	
 	.mat-slide-toggle {
@@ -161,7 +174,7 @@
 	}
 	
 	.mat-snack-bar-container {
-			color: #000;
+		color: #000;
 		
 		&.todo-error {
 			background-color: #cf6679;
