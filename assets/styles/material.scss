@@ -1,6 +1,5 @@
 .cdk-drag-preview {
 	border-radius: 4px;
-	box-sizing: border-box;
 	box-shadow: $box-shadow;
 }
 
@@ -29,6 +28,12 @@
 	width: 100%;
 }
 
+@media (max-width: 500px) {
+	.mat-tooltip-panel {
+		display: none;
+	}
+}
+
 .mat-tooltip {
 	margin: 0 10px !important;
 	font-size: 10px;
@@ -44,22 +49,27 @@
 }
 
 .mat-snack-bar-container {
-	&.todo-error {
-		background-color: #d32f2f;
-		color: #fff;
+	max-width: none !important;
+	width: 100%;
+}
+
+// Theme styles
+
+.theme-light {
+	todo-menu {
+		.mat-button {
+			color: white;
+			
+			&[disabled] {
+				color: rgba(255, 255, 255, .26);
+			}
+		}
 		
-		.dark-theme & {
-			background-color: #cf6679;
-			color: #000;
+		.mat-ripple-element {
+			background-color: white !important;
 		}
 	}
 	
-	&.todo-success {
-		background: $snackbar-bg;
-	}
-}
-
-.theme-basic {
 	.mat-ripple-element {
 		background-color: rgba($light-blue, 0.5) !important;
 	}
@@ -73,8 +83,14 @@
 		background-color: $light-blue;
 	}
 	
-	.mat-form-field.mat-focused .mat-form-field-ripple {
-		background-color: $light-blue;
+	.mat-form-field.mat-focused {
+		.mat-form-field-label {
+			color: $light-blue;
+		}
+		
+		.mat-form-field-ripple {
+			background-color: $light-blue;
+		}
 	}
 	
 	.mat-slide-toggle {
@@ -102,12 +118,23 @@
 }
 
 .theme-dark {
+	.mat-button {
+		&:hover:not([disabled]) .mat-button-focus-overlay {
+			opacity: 0.1;
+			background: #fff;
+		}
+		
+		&[disabled] {
+			color: rgba(255, 255, 255, .26);
+		}
+	}
+	
 	.mat-ripple-element {
 		background-color: rgba(255, 255, 255, 0.5) !important;
 	}
 	
 	.mat-checkbox-frame {
-		border-color: #838383
+		border-color: #a5a5a5;
 	}
 	
 	.mat-checkbox-checked.mat-accent .mat-checkbox-background,
@@ -122,17 +149,6 @@
 	.mat-dialog-container {
 		background: $todo-color;
 		color: $font-color;
-	}
-	
-	.mat-button {
-		&:hover:not([disabled]) .mat-button-focus-overlay {
-			opacity: 0.1;
-			background: #fff;
-		}
-		
-		&[disabled] {
-			color: rgba(255, 255, 255, .26);
-		}
 	}
 	
 	.mat-slide-toggle {
@@ -155,8 +171,18 @@
 		}
 	}
 	
-	.mat-form-field.mat-focused .mat-form-field-ripple {
-		background-color: $font-color;
+	.mat-form-field-label {
+		color: rgba(255, 255, 255, .54);
+	}
+	
+	.mat-form-field.mat-focused {
+		.mat-form-field-label {
+			color: $icon-color;
+		}
+		
+		.mat-form-field-ripple {
+			background-color: $icon-color;
+		}
 	}
 	
 	.mat-input-element {
@@ -164,13 +190,19 @@
 	}
 	
 	.mat-snack-bar-container {
+		color: #000;
+		
 		&.todo-error {
 			background-color: #cf6679;
 			color: #000;
 		}
 		
 		&.todo-success {
-			background: #323232;
+			background: $green;
 		}
+	}
+	
+	.mat-form-field-underline {
+		background-color: rgba(255, 255, 255, .42);
 	}
 }
