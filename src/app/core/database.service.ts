@@ -4,6 +4,7 @@ import { combineLatest, Observable, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 import { Todo } from '../models/todo';
+import { AuthService } from './auth.service';
 import { LogService } from './log.service';
 import { OnlineService } from './online.service';
 import { SettingsQuery, TodoQuery, TodoService, TodoState } from './store';
@@ -16,6 +17,7 @@ const TIME_DELAY = 20 * 1000;
 export class DatabaseService {
     private action$: Observable<Todo[]>;
     private canSync$: Observable<boolean>;
+    private isSignedIn$: Observable<boolean>;
     private todoState$: Observable<TodoState>;
 
     private todoDoc: AngularFirestoreDocument<TodoState>;
@@ -26,6 +28,7 @@ export class DatabaseService {
     private timeout: any;
 
     constructor(
+        private authService: AuthService,
         private firestore: AngularFirestore,
         private logService: LogService,
         private onlineService: OnlineService,
@@ -37,8 +40,9 @@ export class DatabaseService {
         this.todoState$ = this.todoDoc.valueChanges();
 
         this.action$ = this.todoQuery.todoList$;
-        this.canSync$ = combineLatest(this.onlineService.isOnline$, this.settingsQuery.synchronize$)
-            .pipe(map(([isOnline, isSync]) => isOnline && isSync));
+        this.isSignedIn$ = this.authService.user$.pipe(map(user => !!user));
+        this.canSync$ = combineLatest(this.onlineService.isOnline$, this.settingsQuery.synchronize$, this.isSignedIn$)
+            .pipe(map(([isOnline, isSync, isSignedIn]) => isOnline && isSync && isSignedIn));
 
         this.subscribeForUpdates();
     }

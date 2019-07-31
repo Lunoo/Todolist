@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { User } from 'firebase';
 import { Observable } from 'rxjs';
 
 import { Theme } from '../../../models/settings';
+import { AuthService } from '../../../core/auth.service';
 import { SettingsQuery, SettingsService } from '../../../core/store';
 
 @Component({
@@ -11,11 +13,14 @@ import { SettingsQuery, SettingsService } from '../../../core/store';
 export class SettingsDialogComponent {
     synchronize$: Observable<boolean>;
     theme$: Observable<string>;
+    user: User;
 
-    constructor(private settingsService: SettingsService,
+    constructor(private authService: AuthService,
+                private settingsService: SettingsService,
                 private settingsQuery: SettingsQuery) {
         this.synchronize$ = this.settingsQuery.synchronize$;
         this.theme$ = this.settingsQuery.theme$;
+        this.user = this.authService.getCurrentUser();
     }
 
     onSynchronizeChange(synchronize: boolean): void {

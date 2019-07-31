@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Profile</h1>
+
+<div class="info-block" mat-dialog-content>
+    <div class="info-row">
+        <span>Email</span>
+        <div>{{user.email}}</div>
+    </div>
+
+    <div class="info-row">
+        <span>Last sign in</span>
+        <div>{{user.metadata.lastSignInTime | date:'HH:mm, MMMM d, y'}}</div>
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="onSignOut()">Sign out</button>
+</div>

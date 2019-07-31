@@ -83,8 +83,14 @@
 		background-color: $light-blue;
 	}
 	
-	.mat-form-field.mat-focused .mat-form-field-ripple {
-		background-color: $light-blue;
+	.mat-form-field.mat-focused {
+		.mat-form-field-label {
+			color: $light-blue;
+		}
+		
+		.mat-form-field-ripple {
+			background-color: $light-blue;
+		}
 	}
 	
 	.mat-slide-toggle {
@@ -165,8 +171,18 @@
 		}
 	}
 	
-	.mat-form-field.mat-focused .mat-form-field-ripple {
-		background-color: $icon-color;
+	.mat-form-field-label {
+		color: rgba(255, 255, 255, .54);
+	}
+	
+	.mat-form-field.mat-focused {
+		.mat-form-field-label {
+			color: $icon-color;
+		}
+		
+		.mat-form-field-ripple {
+			background-color: $icon-color;
+		}
 	}
 	
 	.mat-input-element {
@@ -184,5 +200,9 @@
 		&.todo-success {
 			background: $green;
 		}
+	}
+	
+	.mat-form-field-underline {
+		background-color: rgba(255, 255, 255, .42);
 	}
 }

@@ -3,6 +3,7 @@
 @import "material";
 
 html {
+	font-family: Roboto, "Helvetica Neue", sans-serif;
 	font-size: 16px;
 	
 	@media (max-width: 500px) {
@@ -183,6 +184,29 @@ button.menu-toggle {
 	}
 }
 
+// Profile dialog styles
+
+.mat-dialog-content.info-block {
+	margin: -10px -24px;
+}
+
+.info-row {
+	border-top: 1px solid;
+	padding: 10px 0;
+	
+	&:first-child {
+		border-top: none;
+	}
+	
+	span {
+		font-size: 12px;
+	}
+	
+	div {
+		margin-top: 5px;
+	}
+}
+
 // Theme styles
 
 .theme-light {
@@ -216,6 +240,14 @@ button.menu-toggle {
 	
 	.todo-item-actions .mat-icon {
 		color: $light-blue;
+	}
+	
+	.info-row {
+		border-top-color: rgba(0, 0, 0, .42);
+		
+		span {
+			color: rgba(0, 0, 0, .54);
+		}
 	}
 }
 
@@ -251,5 +283,13 @@ button.menu-toggle {
 	
 	.todo-item-actions .mat-icon {
 		color: $icon-color;
+	}
+	
+	.info-row {
+		border-top-color: rgba(255, 255, 255, .42);
+		
+		span {
+			color: rgba(255, 255, 255, .54);
+		}
 	}
 }

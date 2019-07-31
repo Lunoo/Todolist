@@ -64,6 +64,19 @@ export class TodoService {
         this.todoStore.update({created});
     }
 
+    cashLocalTodoList(): void {
+        localStorage.setItem('LocalTodoList', JSON.stringify(this.todoQuery.getValue()));
+        this.setState({entities: {}});
+        this.history.clear();
+    }
+
+    getLocalTodoListFromCash(): void {
+        const todoListState = JSON.parse(localStorage.getItem('LocalTodoList'));
+        localStorage.removeItem('LocalTodoList');
+        this.setState(todoListState || {});
+        this.history.clear();
+    }
+
     private addCreatedDate(): void {
         this.todoStore.update({
             created: new Date().toISOString()

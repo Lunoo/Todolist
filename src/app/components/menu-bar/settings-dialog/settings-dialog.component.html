@@ -2,7 +2,8 @@
 
 <div mat-dialog-content>
     <mat-slide-toggle
-        [checked]="synchronize$ | async"
+        [disabled]="!user"
+        [checked]="user && (synchronize$ | async)"
         (change)="onSynchronizeChange($event.checked)">
         Synchronize all devices
     </mat-slide-toggle>

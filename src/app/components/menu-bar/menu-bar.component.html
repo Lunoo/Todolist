@@ -22,9 +22,24 @@
     </button>
 
     <button mat-button
-            [matTooltip]="user ? 'Sign out' : 'Sign in'"
-            (click)="user = !user">
-        <mat-icon>{{user ? 'person' : 'person_outline'}}</mat-icon>
+            *ngIf="!(user$ | async)"
+            [matTooltip]="'Sign up'"
+            (click)="openAuthDialog(true)">
+        <mat-icon>person_add</mat-icon>
+    </button>
+
+    <button mat-button
+            *ngIf="!(user$ | async)"
+            [matTooltip]="'Sign in'"
+            (click)="openAuthDialog()">
+        <mat-icon>person_outline</mat-icon>
+    </button>
+
+    <button mat-button
+            *ngIf="user$ | async"
+            [matTooltip]="'Profile'"
+            (click)="openProfileDialog()">
+        <mat-icon>person</mat-icon>
         <span class="user-status user-{{(isOnline$ | async) ? 'online' : 'offline'}}"></span>
     </button>
 </div>
