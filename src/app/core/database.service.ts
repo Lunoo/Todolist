@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { firestore, User } from 'firebase/app';
+import Timestamp = firestore.Timestamp;
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-import { Todo } from '../models/todo';
+import { createSnapshot, stringToTimestamp, Todo, TodoStateSnapshot } from '../models';
+import { SettingsQuery, TodoQuery, TodoService, TodoState } from './store';
 import { AuthService } from './auth.service';
 import { LogService } from './log.service';
 import { OnlineService } from './online.service';
-import { SettingsQuery, TodoQuery, TodoService, TodoState } from './store';
 
-const TIME_DELAY = 20 * 1000;
+const TIME_DELAY = 10 * 1000;
 
 @Injectable({
     providedIn: 'root'
@@ -17,56 +19,55 @@ const TIME_DELAY = 20 * 1000;
 export class DatabaseService {
     private action$: Observable<Todo[]>;
     private canSync$: Observable<boolean>;
-    private isSignedIn$: Observable<boolean>;
-    private todoState$: Observable<TodoState>;
 
-    private todoDoc: AngularFirestoreDocument<TodoState>;
+    private todoDoc: AngularFirestoreDocument<TodoStateSnapshot>;
+    private todoState$: Observable<TodoStateSnapshot>;
 
     private canCheck: boolean = true;
-    private serverTodoState: TodoState = null;
+    private serverTodoState: TodoStateSnapshot = null;
     private subs: Subscription[] = [];
     private timeout: any;
 
     constructor(
         private authService: AuthService,
-        private firestore: AngularFirestore,
+        private aFirestore: AngularFirestore,
         private logService: LogService,
         private onlineService: OnlineService,
         private settingsQuery: SettingsQuery,
         private todoQuery: TodoQuery,
         private todoService: TodoService,
     ) {
-        this.todoDoc = this.firestore.doc('todoList/admin');
-        this.todoState$ = this.todoDoc.valueChanges();
-
         this.action$ = this.todoQuery.todoList$;
-        this.isSignedIn$ = this.authService.user$.pipe(map(user => !!user));
-        this.canSync$ = combineLatest(this.onlineService.isOnline$, this.settingsQuery.synchronize$, this.isSignedIn$)
-            .pipe(map(([isOnline, isSync, isSignedIn]) => isOnline && isSync && isSignedIn));
+        this.canSync$ = combineLatest(
+            this.onlineService.isOnline$,
+            this.settingsQuery.synchronize$,
+            this.authService.user$
+        ).pipe(map(([isOnline, isSync, isSignedIn]) => isOnline && isSync && !!isSignedIn));
 
+        this.initTodoDoc();
         this.subscribeForUpdates();
     }
 
     createServer(state: TodoState): void {
-        this.todoDoc.set(state)
+        this.todoDoc.set(createSnapshot(state))
             .catch(err => {
                 this.logService.showMessage(err, 'error');
             });
     }
 
-    updateLocal(state: TodoState): void {
+    updateLocal(state: TodoStateSnapshot): void {
         this.todoService.setState(state);
         this.logService.showMessage('Todo list was updated', 'success');
     }
 
     updateServer(state: TodoState): void {
-        this.todoDoc.update(state)
+        this.todoDoc.update(createSnapshot(state))
             .catch(err => {
                 this.logService.showMessage(err, 'error');
             });
     }
 
-    private checkUpdates(serverState: TodoState): void {
+    private checkUpdates(serverState: TodoStateSnapshot): void {
         const localState: TodoState = this.todoQuery.getValue();
         if (!this.canCheck || (!localState.created && !serverState)) {
             return;
@@ -134,18 +135,26 @@ export class DatabaseService {
         setTimeout(() => this.canCheck = true, 2000);
     }
 
-    private isLocalStateOutOfDate(localCreated: string, serverCreated: string): boolean | null {
-        const localCreatedDate = new Date(localCreated);
-        const serverCreatedDate = new Date(serverCreated);
+    private isLocalStateOutOfDate(localCreatedStr: string, serverCreated: Timestamp): boolean | null {
+        const localCreated = stringToTimestamp(localCreatedStr);
 
-        if (serverCreatedDate.getTime() > localCreatedDate.getTime()) {
+        if (serverCreated.seconds > localCreated.seconds) {
             return true;
         }
 
-        if (serverCreatedDate.getTime() < localCreatedDate.getTime()) {
+        if (serverCreated.seconds < localCreated.seconds) {
             return false;
         }
 
         return null;
+    }
+
+    private initTodoDoc(): void {
+        this.authService.user$.subscribe((user: User) => {
+            if (user) {
+                this.todoDoc = this.aFirestore.doc('todoList/' + user.email);
+                this.todoState$ = this.todoDoc.valueChanges();
+            }
+        });
     }
 }

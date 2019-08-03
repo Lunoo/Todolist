@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import { ID } from '@datorama/akita';
 import { Observable } from 'rxjs';
 
-import { Todo } from '../../models/todo';
+import { Todo } from '../../models';
 import { todoAnimation } from './todo.animation';
 import { TodoDialogComponent } from './todo-dialog/todo-dialog.component';
 import { TodoQuery, TodoService } from '../../core/store';

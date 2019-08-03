@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { guid, ID, StateHistoryPlugin, transaction } from '@datorama/akita';
 
-import { Todo } from '../../../models/todo';
-import { TodoState, TodoStore } from './todo.store';
+import { createSnapshot, timestampToString, Todo, TodoStateSnapshot } from '../../../models';
+import { TodoStore } from './todo.store';
 import { TodoQuery } from './todo.query';
 
 @Injectable({
@@ -59,21 +59,26 @@ export class TodoService {
     }
 
     @transaction()
-    setState({created, entities}: Partial<TodoState>): void {
+    setState({created, entities}: TodoStateSnapshot): void {
         this.todoStore.set(entities);
-        this.todoStore.update({created});
+        this.todoStore.update({created: timestampToString(created)});
     }
 
     cashLocalTodoList(): void {
-        localStorage.setItem('LocalTodoList', JSON.stringify(this.todoQuery.getValue()));
-        this.setState({entities: {}});
+        const localTodoList = createSnapshot(this.todoQuery.getValue());
+        localStorage.setItem('LocalTodoList', JSON.stringify(localTodoList));
+        this.clearState();
         this.history.clear();
     }
 
     getLocalTodoListFromCash(): void {
         const todoListState = JSON.parse(localStorage.getItem('LocalTodoList'));
+
+        if (todoListState) {
+            this.setState(todoListState);
+        }
+
         localStorage.removeItem('LocalTodoList');
-        this.setState(todoListState || {});
         this.history.clear();
     }
 
@@ -81,5 +86,10 @@ export class TodoService {
         this.todoStore.update({
             created: new Date().toISOString()
         });
+    }
+
+    private clearState(): void {
+        this.todoStore.set([]);
+        this.todoStore.update({created: null});
     }
 }

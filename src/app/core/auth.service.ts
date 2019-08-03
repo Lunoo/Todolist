@@ -46,4 +46,13 @@ export class AuthService {
             })
             .catch(err => this.logService.showMessage(err, 'error'));
     }
+
+    fetchSignInMethodsForEmail(email: string): Promise<any> {
+        return this.fireAuth.auth.fetchSignInMethodsForEmail(email)
+            .then((a) => {
+                console.log(11, a);
+            }).catch(() => {
+                console.log(22);
+            });
+    }
 }

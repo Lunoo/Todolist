@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { User } from 'firebase';
 import { Observable } from 'rxjs';
 
-import { Theme } from '../../../models/settings';
+import { Theme } from '../../../models';
 import { AuthService } from '../../../core/auth.service';
 import { SettingsQuery, SettingsService } from '../../../core/store';
 

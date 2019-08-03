@@ -1,7 +1,7 @@
 import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
-import { Todo } from '../../../models/todo';
+import { Todo } from '../../../models';
 
 @Component({
     selector: 'todo-dialog',
