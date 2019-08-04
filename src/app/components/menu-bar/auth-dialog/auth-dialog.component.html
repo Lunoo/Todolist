@@ -3,10 +3,21 @@
 <form [formGroup]="form">
     <div mat-dialog-content>
         <mat-form-field>
-            <input matInput type="email"
+            <input [emailValidator]="isRegistration"
+                   matInput type="email"
                    placeholder="Email"
                    formControlName="email"
             />
+
+            <mat-error *ngIf="form.get('email').hasError('required')">
+                The email address is required.
+            </mat-error>
+            <mat-error *ngIf="form.get('email').hasError('pattern')">
+                The email address is badly formatted.
+            </mat-error>
+            <mat-error *ngIf="form.get('email').hasError('code')">
+                {{form.get('email').errors.message}}
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field>
@@ -14,6 +25,17 @@
                    placeholder="Password"
                    formControlName="password"
             />
+
+            <mat-error *ngIf="form.get('password').hasError('required')">
+                Password is required.
+            </mat-error>
+            <mat-error *ngIf="form.get('password').hasError('minlength')">
+                Password should contain at least 6 characters
+            </mat-error>
+            <mat-error *ngIf="form.get('password').hasError('pattern')">
+                Password should contain at least one uppercase letter,
+                one uppercase letter and one number.
+            </mat-error>
         </mat-form-field>
     </div>
 

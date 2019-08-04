@@ -17,9 +17,14 @@
 
 .mat-form-field {
 	width: 100%;
+	
+	.mat-error + .mat-error {
+		display: none;
+	}
 }
 
-.mat-dialog-content {
+div.mat-dialog-content {
+	padding: 12px 24px;
 	font-size: $font-size;
 }
 

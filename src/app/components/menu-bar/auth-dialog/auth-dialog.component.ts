@@ -24,8 +24,15 @@ export class AuthDialogComponent {
         this.isRegistration = data.isRegistration;
 
         this.form = this.fb.group({
-            email: ['', [Validators.required, Validators.pattern(EMAIL_PATTERN)]],
-            password: ['', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]]
+            email: ['', [
+                Validators.required,
+                Validators.pattern(EMAIL_PATTERN)
+            ]],
+            password: ['', [
+                Validators.required,
+                Validators.minLength(6),
+                Validators.pattern(PASSWORD_PATTERN)
+            ]]
         });
     }
 

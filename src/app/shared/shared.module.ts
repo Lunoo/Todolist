@@ -12,7 +12,12 @@ import {
     MatTooltipModule
 } from '@angular/material';
 
+import { EmailValidatorDirective } from './email-validator.directive';
+
 @NgModule({
+    declarations: [
+        EmailValidatorDirective
+    ],
     exports: [
         CommonModule,
         FormsModule,
@@ -25,6 +30,7 @@ import {
         MatSlideToggleModule,
         MatSnackBarModule,
         MatTooltipModule,
+        EmailValidatorDirective,
     ]
 })
 

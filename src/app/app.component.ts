@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { DatabaseService } from './core/database.service';
 import { SettingsQuery } from './core/store';
 
 @Component({
@@ -10,7 +11,8 @@ import { SettingsQuery } from './core/store';
 export class AppComponent {
     showMenu$: Observable<boolean>;
 
-    constructor(private settingsQuery: SettingsQuery) {
+    constructor(private database: DatabaseService,
+                private settingsQuery: SettingsQuery) {
         this.showMenu$ = this.settingsQuery.showMenu$;
 
         this.settingsQuery.theme$.subscribe((val: string) => {

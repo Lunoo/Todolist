@@ -17,7 +17,6 @@
     "directive-selector": [
       true,
       "attribute",
-      "todo",
       "camelCase"
     ],
     "eofline": false,

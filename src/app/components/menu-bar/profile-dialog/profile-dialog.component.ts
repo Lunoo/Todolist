@@ -24,8 +24,4 @@ export class ProfileDialogComponent {
                 this.dialogRef.close();
             });
     }
-
-    CheckEmail() {
-        this.authService.fetchSignInMethodsForEmail('testkr.n');
-    }
 }

@@ -64,32 +64,34 @@ export class TodoService {
         this.todoStore.update({created: timestampToString(created)});
     }
 
+    clearHistory(): void {
+        this.history.clear();
+    }
+
+    clearState(): void {
+        this.todoStore.set([]);
+        this.todoStore.update({created: null});
+        this.clearHistory();
+    }
+
     cashLocalTodoList(): void {
         const localTodoList = createSnapshot(this.todoQuery.getValue());
         localStorage.setItem('LocalTodoList', JSON.stringify(localTodoList));
-        this.clearState();
-        this.history.clear();
     }
 
     getLocalTodoListFromCash(): void {
         const todoListState = JSON.parse(localStorage.getItem('LocalTodoList'));
+        localStorage.removeItem('LocalTodoList');
 
         if (todoListState) {
             this.setState(todoListState);
+            this.clearHistory();
         }
-
-        localStorage.removeItem('LocalTodoList');
-        this.history.clear();
     }
 
     private addCreatedDate(): void {
         this.todoStore.update({
             created: new Date().toISOString()
         });
-    }
-
-    private clearState(): void {
-        this.todoStore.set([]);
-        this.todoStore.update({created: null});
     }
 }

@@ -35,6 +35,7 @@ export class AuthService {
         return this.fireAuth.auth.signInWithEmailAndPassword(email, password)
             .then(() => {
                 this.todoService.cashLocalTodoList();
+                this.todoService.clearState();
             })
             .catch(err => this.logService.showMessage(err, 'error'));
     }
@@ -42,17 +43,9 @@ export class AuthService {
     signOut(): Promise<any> {
         return this.fireAuth.auth.signOut()
             .then(() => {
+                this.todoService.clearState();
                 this.todoService.getLocalTodoListFromCash();
             })
             .catch(err => this.logService.showMessage(err, 'error'));
-    }
-
-    fetchSignInMethodsForEmail(email: string): Promise<any> {
-        return this.fireAuth.auth.fetchSignInMethodsForEmail(email)
-            .then((a) => {
-                console.log(11, a);
-            }).catch(() => {
-                console.log(22);
-            });
     }
 }

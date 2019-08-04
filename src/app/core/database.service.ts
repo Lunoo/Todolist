@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 import { LogService } from './log.service';
 import { OnlineService } from './online.service';
 
-const TIME_DELAY = 10 * 1000;
+const TIME_DELAY = 20 * 1000;
 
 @Injectable({
     providedIn: 'root'
@@ -23,8 +23,8 @@ export class DatabaseService {
     private todoDoc: AngularFirestoreDocument<TodoStateSnapshot>;
     private todoState$: Observable<TodoStateSnapshot>;
 
-    private canCheck: boolean = true;
-    private serverTodoState: TodoStateSnapshot = null;
+    private cashedServerState: TodoStateSnapshot = null;
+    private skipRequest: boolean;
     private subs: Subscription[] = [];
     private timeout: any;
 
@@ -49,29 +49,38 @@ export class DatabaseService {
     }
 
     createServer(state: TodoState): void {
+        this.skipRequest = true;
         this.todoDoc.set(createSnapshot(state))
+            .then(() => {
+                this.cashedServerState = createSnapshot(this.todoQuery.getValue());
+            })
             .catch(err => {
                 this.logService.showMessage(err, 'error');
+            })
+            .finally(() => {
+                setTimeout(() => this.skipRequest = false, 1000);
             });
     }
 
-    updateLocal(state: TodoStateSnapshot): void {
+    updateLocal(state: TodoStateSnapshot, isCreated?: boolean): void {
         this.todoService.setState(state);
-        this.logService.showMessage('Todo list was updated', 'success');
+        this.logService.showMessage(`Todo list was ${isCreated ? 'loaded' : 'updated'}`, 'success');
     }
 
     updateServer(state: TodoState): void {
+        this.skipRequest = true;
         this.todoDoc.update(createSnapshot(state))
+            .then(() => {
+                this.cashedServerState = createSnapshot(this.todoQuery.getValue());
+            })
             .catch(err => {
                 this.logService.showMessage(err, 'error');
-            });
+            })
+            .finally(() => setTimeout(() => this.skipRequest = false, 1000));
     }
 
     private checkUpdates(serverState: TodoStateSnapshot): void {
         const localState: TodoState = this.todoQuery.getValue();
-        if (!this.canCheck || (!localState.created && !serverState)) {
-            return;
-        }
 
         if (!serverState) {
             // create new document and collection on the server
@@ -79,43 +88,52 @@ export class DatabaseService {
             return;
         }
 
-        if (
-            !localState.created
-            || this.isLocalStateOutOfDate(localState.created, serverState.created) === true
-        ) {
+        if (!localState.created) {
+            // create local state
+            this.updateLocal(serverState, true);
+            this.todoService.clearHistory();
+            return;
+        }
+
+        if (this.isLocalStateOutOfDate(localState.created, serverState.created) === true) {
             // update local state
             this.updateLocal(serverState);
         } else if (this.isLocalStateOutOfDate(localState.created, serverState.created) === false) {
             // update collection on the server
             this.updateServer(localState);
         }
-
-        // ignore update from server after last action
-        this.changeCanCheck();
     }
 
     private subscribeForUpdates(): void {
         this.canSync$.subscribe((canSync: boolean) => {
             if (canSync) {
                 // subscribe to server changes
-                const getSubs = this.todoState$.subscribe(
-                    state => {
-                        this.serverTodoState = state;
-                        this.checkUpdates(state);
-                    },
-                    err => {
-                        this.logService.showMessage(err, 'error');
-                    }
-                );
+                const getSubs = this.todoState$
+                    .pipe(
+                        // ignore update from server after last action
+                        filter(() => !this.skipRequest)
+                    )
+                    .subscribe(
+                        state => {
+                            this.cashedServerState = state;
+                            this.checkUpdates(state);
+                        },
+                        err => {
+                            this.logService.showMessage(err, 'error');
+                        }
+                    );
 
                 // subscribe to local changes. Check only after TIME_DELAY since the last change
                 const postSubs = this.action$
-                    .pipe(filter(() => this.serverTodoState !== null))
+                    .pipe(
+                        // ignore app initialization
+                        filter(() => this.cashedServerState !== null)
+                    )
                     .subscribe(() => {
                         clearTimeout(this.timeout);
 
                         this.timeout = setTimeout(() => {
-                            this.checkUpdates(this.serverTodoState);
+                            this.checkUpdates(this.cashedServerState);
                         }, TIME_DELAY);
                     });
 
@@ -126,13 +144,6 @@ export class DatabaseService {
                 clearTimeout(this.timeout);
             }
         });
-    }
-
-    private changeCanCheck(): void {
-        this.canCheck = false;
-        clearTimeout(this.timeout);
-
-        setTimeout(() => this.canCheck = true, 2000);
     }
 
     private isLocalStateOutOfDate(localCreatedStr: string, serverCreated: Timestamp): boolean | null {
