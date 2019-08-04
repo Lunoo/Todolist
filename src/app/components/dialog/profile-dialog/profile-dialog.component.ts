@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { User } from 'firebase';
 
-import { AuthService } from '../../../core/auth.service';
+import { AuthService } from '../../../services';
 
 @Component({
     selector: 'profile-dialog',

@@ -1,8 +1,9 @@
+import 'firebase/firestore';
 import { firestore } from 'firebase/app';
 import Timestamp = firestore.Timestamp;
 
 import { Todo } from './todo';
-import { TodoState } from '../core/store';
+import { TodoState } from '../store';
 
 export function createSnapshot(state: TodoState): TodoStateSnapshot {
     return {

@@ -3,8 +3,8 @@ import { User } from 'firebase';
 import { Observable } from 'rxjs';
 
 import { Theme } from '../../../models';
-import { AuthService } from '../../../core/auth.service';
-import { SettingsQuery, SettingsService } from '../../../core/store';
+import { AuthService } from '../../../services';
+import { SettingsQuery, SettingsService } from '../../../store';
 
 @Component({
     selector: 'settings-dialog',

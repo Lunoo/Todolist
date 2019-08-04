@@ -5,9 +5,9 @@ import { ID } from '@datorama/akita';
 import { Observable } from 'rxjs';
 
 import { Todo } from '../../models';
+import { TodoDialogComponent } from '../dialog';
+import { TodoQuery, TodoService } from '../../store';
 import { todoAnimation } from './todo.animation';
-import { TodoDialogComponent } from './todo-dialog/todo-dialog.component';
-import { TodoQuery, TodoService } from '../../core/store';
 
 @Component({
     selector: 'todo-list',

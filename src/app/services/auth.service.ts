@@ -4,7 +4,7 @@ import { User } from 'firebase';
 import { Observable } from 'rxjs';
 
 import { LogService } from './log.service';
-import { TodoService } from './store';
+import { TodoService } from '../store';
 
 @Injectable({
     providedIn: 'root'
@@ -27,6 +27,8 @@ export class AuthService {
         return this.fireAuth.auth.createUserWithEmailAndPassword(email, password)
             .then(() => {
                 this.logService.showMessage('User was successfully created', 'success');
+                this.todoService.cashLocalTodoList();
+                this.todoService.clearState();
             })
             .catch(err => this.logService.showMessage(err, 'error'));
     }

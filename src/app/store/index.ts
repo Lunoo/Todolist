@@ -12,5 +12,5 @@ export {
     TodoQuery,
     TodoService,
     TodoState,
-    TodoStore,
+    TodoStore
 };

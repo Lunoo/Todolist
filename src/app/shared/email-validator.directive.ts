@@ -1,7 +1,9 @@
 import { Directive, forwardRef, Input } from '@angular/core';
 import { Validator, AbstractControl, NG_ASYNC_VALIDATORS, ValidationErrors } from '@angular/forms';
 
-import { EmailValidationService } from '../core/email-validation.service';
+import { EmailValidationService } from '../services';
+
+const EMAIL_PATTERN = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 @Directive({
     selector: '[emailValidator][formControlName],[emailValidator][formControl],[emailValidator][ngModel]',
@@ -24,9 +26,25 @@ export class EmailValidatorDirective implements Validator {
     }
 
     private validateEmailPromise(email: string) {
-        clearTimeout(this.timeout);
+        if (this.timeout) {
+            clearTimeout(this.timeout);
+        }
 
         return new Promise(resolve => {
+            if (!email || !email.trim()) {
+                return resolve({
+                    code: 'required',
+                    message: 'The email address is required.'
+                });
+            }
+
+            if (!EMAIL_PATTERN.test(email)) {
+                return resolve({
+                    code: 'pattern',
+                    message: 'The email address is badly formatted.'
+                });
+            }
+
             this.timeout = setTimeout(() => {
                 this.emailValidationService.checkEmail(email)
                     .then(res => {

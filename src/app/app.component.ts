@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { DatabaseService } from './core/database.service';
-import { SettingsQuery } from './core/store';
+import { DatabaseService } from './services';
+import { SettingsQuery } from './store';
 
 @Component({
     selector: 'todo-root',

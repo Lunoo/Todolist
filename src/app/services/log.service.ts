@@ -11,7 +11,7 @@ export class LogService {
     showMessage(message: string, type?: 'success' | 'error'): void {
         this.snackBar.open(message, null, {
             panelClass: `todo-${type}`,
-            duration: 5000,
+            duration: 5000
         });
     }
 }

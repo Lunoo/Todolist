@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Query } from '@datorama/akita';
 import { Observable } from 'rxjs';
 
-import { Settings } from '../../../models/settings';
+import { Settings } from '../../models';
 import { SettingsStore } from './settings.store';
 
 @Injectable({

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { firestore, User } from 'firebase/app';
-import Timestamp = firestore.Timestamp;
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
+import 'firebase/firestore';
+import { firestore, User } from 'firebase/app';
+import Timestamp = firestore.Timestamp;
+
 import { createSnapshot, stringToTimestamp, Todo, TodoStateSnapshot } from '../models';
-import { SettingsQuery, TodoQuery, TodoService, TodoState } from './store';
+import { SettingsQuery, TodoQuery, TodoService, TodoState } from '../store';
 import { AuthService } from './auth.service';
 import { LogService } from './log.service';
 import { OnlineService } from './online.service';

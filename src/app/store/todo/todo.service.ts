@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { guid, ID, StateHistoryPlugin, transaction } from '@datorama/akita';
 
-import { createSnapshot, timestampToString, Todo, TodoStateSnapshot } from '../../../models';
+import { createSnapshot, timestampToString, Todo, TodoStateSnapshot } from '../../models';
 import { TodoStore } from './todo.store';
 import { TodoQuery } from './todo.query';
 

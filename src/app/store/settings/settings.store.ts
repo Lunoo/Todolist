@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
 
-import { Settings } from '../../../models/settings';
+import { Settings } from '../../models';
 
 function createInitialState(): Settings {
     return new Settings();

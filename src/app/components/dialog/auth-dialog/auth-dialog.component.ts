@@ -1,11 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
-import { AuthService } from '../../../core/auth.service';
-
-export const EMAIL_PATTERN = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-export const PASSWORD_PATTERN = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/;
+import { AuthService } from '../../../services';
 
 @Component({
     selector: 'settings-dialog',
@@ -24,15 +21,8 @@ export class AuthDialogComponent {
         this.isRegistration = data.isRegistration;
 
         this.form = this.fb.group({
-            email: ['', [
-                Validators.required,
-                Validators.pattern(EMAIL_PATTERN)
-            ]],
-            password: ['', [
-                Validators.required,
-                Validators.minLength(6),
-                Validators.pattern(PASSWORD_PATTERN)
-            ]]
+            email: '',
+            password: ''
         });
     }
 
