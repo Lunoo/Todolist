@@ -3,6 +3,7 @@
     <todo-item
         *ngFor="let todo of todoList$ | async; trackBy: itemTrackBy"
         @todoAnimate cdkDrag
+        [cdkDragDisabled]="isMobile$ | async"
         [todo]="todo"
         (checked)="editTodo($event)"
         (edit)="openDialog($event)"

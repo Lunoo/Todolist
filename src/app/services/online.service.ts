@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { fromEvent, merge, Observable, Observer } from 'rxjs';
+import { fromEvent, merge, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -12,9 +12,7 @@ export class OnlineService {
         return merge<boolean>(
             fromEvent(window, 'offline').pipe(map(() => false)),
             fromEvent(window, 'online').pipe(map(() => true)),
-            new Observable((sub: Observer<boolean>) => {
-                sub.next(navigator.onLine);
-                sub.complete();
-            }));
+            of(navigator.onLine)
+        );
     }
 }

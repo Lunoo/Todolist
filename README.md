@@ -1,27 +1,23 @@
 # TodoList
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.0.
+TodoList is a simple web application with which you can create a list of tasks, mark done and delete them.
 
-## Development server
+## Live Demo
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+https://lunoo.github.io/Todolist
 
-## Code scaffolding
+You can follow the link and use the main functionality immediately.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+There is an optional registration, which will add the ability to synchronize data on all devices using
+[Firebase](https://firebase.google.com/).
 
-## Build
+## The technology stack
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+The application is made on the latest version of Angular. Used libraries:
+* [Angular Material](https://material.angular.io/) - as core of design
+* [AngularFire](https://github.com/angular/angularfire2) - as database
+* [Akita](https://github.com/datorama/akita) - for state management
 
-## Running unit tests
+## Install
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+To run application locally you need to create `environments` folder with settings of your own database.

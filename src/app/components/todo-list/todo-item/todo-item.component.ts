@@ -15,6 +15,7 @@ export class TodoItemComponent {
     @Output() checked: EventEmitter<Todo> = new EventEmitter();
     @Output() edit: EventEmitter<Todo> = new EventEmitter();
     @Output() delete: EventEmitter<ID> = new EventEmitter();
+    @Output() move: EventEmitter<number> = new EventEmitter();
 
     todo: Todo;
 

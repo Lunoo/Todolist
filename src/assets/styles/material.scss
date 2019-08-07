@@ -18,6 +18,11 @@
 .mat-form-field {
 	width: 100%;
 	
+	textarea.mat-input-element {
+		padding: 0;
+		margin: 0;
+	}
+	
 	.mat-error + .mat-error {
 		display: none;
 	}

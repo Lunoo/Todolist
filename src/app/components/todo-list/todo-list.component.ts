@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Todo } from '../../models';
 import { TodoDialogComponent } from '../dialog';
 import { TodoQuery, TodoService } from '../../store';
+import { DeviceService } from '../../services';
 import { todoAnimation } from './todo.animation';
 
 @Component({
@@ -19,10 +20,13 @@ import { todoAnimation } from './todo.animation';
 })
 export class TodoListComponent implements OnInit {
     todoList$: Observable<Todo[]>;
+    isMobile$: Observable<boolean>;
 
     constructor(private dialog: MatDialog,
+                private deviceService: DeviceService,
                 private query: TodoQuery,
                 private store: TodoService) {
+        this.isMobile$ = this.deviceService.isMobile$;
     }
 
     ngOnInit(): void {
