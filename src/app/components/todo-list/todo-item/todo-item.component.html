@@ -7,22 +7,12 @@
     </div>
 
     <div class="todo-actions">
-        <div class="todo-actions-wrapper">
-            <button mat-button (click)="edit.emit(todo)">
-                <mat-icon>edit</mat-icon>
-            </button>
+        <button mat-button (click)="edit.emit(todo)">
+            <mat-icon>edit</mat-icon>
+        </button>
 
-            <button mat-button (click)="delete.emit(todo.id)">
-                <mat-icon>delete</mat-icon>
-            </button>
-
-            <button mat-button (click)="move.emit(-1)">
-                <mat-icon>keyboard_arrow_up</mat-icon>
-            </button>
-
-            <button mat-button (click)="move.emit(1)">
-                <mat-icon>keyboard_arrow_down</mat-icon>
-            </button>
-        </div>
+        <button mat-button (click)="delete.emit(todo.id)">
+            <mat-icon>delete</mat-icon>
+        </button>
     </div>
 </div>
