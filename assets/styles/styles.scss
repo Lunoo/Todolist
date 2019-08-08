@@ -62,18 +62,27 @@ button.todo-add {
 	
 	&:hover .mat-button {
 		opacity: 1;
+		transform: translateX(0);
 	}
 }
 
-.todo-item-actions {
-	white-space: nowrap;
+.todo-actions {
+	flex: 0 0 40px;
+	margin: -15px -5px -15px 0;
+	overflow: hidden;
 	
 	.mat-button {
-		min-width: 30px;
-		padding: 5px 0;
+		height: 31.2px;
+		min-width: 100%;
+		padding: 0;
 		line-height: $todo-line-height;
 		opacity: 0;
-		transition: opacity 90ms $transition;
+		transform: translateX(100%);
+		transition: opacity 90ms $transition, transform 200ms $transition;
+		
+		&:hover .mat-button-focus-overlay {
+			opacity: .1;
+		}
 	}
 	
 	.mat-icon {
@@ -87,6 +96,7 @@ button.todo-add {
 
 .todo-checkbox {
 	width: 100%;
+	padding: 5px 0;
 	
 	.mat-checkbox-layout {
 		position: relative;
@@ -230,7 +240,7 @@ button.menu-toggle {
 		color: rgba(0, 0, 0, 0.87);
 	}
 	
-	.todo-item-actions .mat-icon {
+	.todo-actions .mat-icon {
 		color: $light-blue;
 	}
 	
@@ -273,7 +283,7 @@ button.menu-toggle {
 		color: $font-color;
 	}
 	
-	.todo-item-actions .mat-icon {
+	.todo-actions .mat-icon {
 		color: $icon-color;
 	}
 	
