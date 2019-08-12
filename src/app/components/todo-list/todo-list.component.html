@@ -1,5 +1,5 @@
 <div @todoListInit cdkDropList class="todo-list"
-     (cdkDropListDropped)="drop($event)">
+     (cdkDropListDropped)="dropTodo($event)">
     <todo-item
         *ngFor="let todo of todoList$ | async; trackBy: itemTrackBy"
         @todoAnimate cdkDrag

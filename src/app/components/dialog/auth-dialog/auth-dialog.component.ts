@@ -26,18 +26,18 @@ export class AuthDialogComponent {
         });
     }
 
-    onSignIn(): void {
+    onCreate(): void {
         if (this.form.valid) {
-            this.authService.signIn(this.form.value)
+            this.authService.create(this.form.value)
                 .finally(() => {
                     this.dialogRef.close();
                 });
         }
     }
 
-    onCreate(): void {
+    onSignIn(): void {
         if (this.form.valid) {
-            this.authService.create(this.form.value)
+            this.authService.signIn(this.form.value)
                 .finally(() => {
                     this.dialogRef.close();
                 });

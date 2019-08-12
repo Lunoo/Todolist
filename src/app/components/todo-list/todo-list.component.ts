@@ -33,16 +33,12 @@ export class TodoListComponent implements OnInit {
         this.todoList$ = this.query.todoList$;
     }
 
-    itemTrackBy(index: number, item: Todo): ID {
-        return item.id;
-    }
-
-    drop(event: CdkDragDrop<Todo[]>): void {
-        this.store.move(event.previousIndex, event.currentIndex);
-    }
-
-    createItem(todo: Todo): void {
+    createTodo(todo: Todo): void {
         this.store.add(todo);
+    }
+
+    dropTodo(event: CdkDragDrop<Todo[]>): void {
+        this.store.move(event.previousIndex, event.currentIndex);
     }
 
     editTodo(todo: Todo): void {
@@ -51,6 +47,10 @@ export class TodoListComponent implements OnInit {
 
     deleteTodo(todoId: ID): void {
         this.store.delete(todoId);
+    }
+
+    itemTrackBy(index: number, item: Todo): ID {
+        return item.id;
     }
 
     openDialog(todo?: Todo): void {
@@ -66,7 +66,7 @@ export class TodoListComponent implements OnInit {
             if (res.id) {
                 this.editTodo(res);
             } else {
-                this.createItem(res);
+                this.createTodo(res);
             }
         });
     }

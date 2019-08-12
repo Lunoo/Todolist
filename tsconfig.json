@@ -18,17 +18,12 @@
       "es2018",
       "dom"
     ],
-    "types": []
+    "types": [
+      "jasmine"
+    ]
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
-  },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "src/test.ts",
-    "src/**/*.spec.ts"
-  ]
+  }
 }
