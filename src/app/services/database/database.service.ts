@@ -7,11 +7,12 @@ import 'firebase/firestore';
 import { firestore, User } from 'firebase/app';
 import Timestamp = firestore.Timestamp;
 
-import { createSnapshot, stringToTimestamp, Todo, TodoStateSnapshot } from '../models';
-import { SettingsQuery, TodoQuery, TodoService, TodoState } from '../store';
-import { AuthService } from './auth.service';
-import { LogService } from './log.service';
-import { OnlineService } from './online.service';
+import { createSnapshot, stringToTimestamp, Todo, TodoStateSnapshot } from '../../models';
+import { SettingsQuery, TodoQuery, TodoService, TodoState } from '../../store';
+// import { AuthService, LogService, OnlineService } from '..';
+import { AuthService } from '../auth/auth.service';
+import { LogService } from '../log/log.service';
+import { OnlineService } from '../online/online.service';
 
 const TIME_DELAY = 20 * 1000;
 

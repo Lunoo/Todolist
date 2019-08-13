@@ -3,8 +3,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from 'firebase';
 import { Observable } from 'rxjs';
 
-import { LogService } from './log.service';
-import { TodoService } from '../store';
+import { LogService } from '../log/log.service';
+import { TodoService } from '../../store';
 
 @Injectable({
     providedIn: 'root'
