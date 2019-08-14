@@ -12,12 +12,12 @@ export function createSnapshot(state: TodoState): TodoStateSnapshot {
     };
 }
 
-export function timestampToString(date: Timestamp): string {
-    return new Date(date.seconds * 1000).toISOString();
-}
-
 export function stringToTimestamp(date: string | number): Timestamp {
     return Timestamp.fromDate(new Date(date));
+}
+
+export function timestampToString(date: Timestamp): string {
+    return new Date(date.seconds * 1000).toISOString();
 }
 
 export interface TodoStateSnapshot {

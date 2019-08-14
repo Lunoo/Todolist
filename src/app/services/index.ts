@@ -1,9 +1,9 @@
-import { AuthService } from './auth/auth.service';
-import { DatabaseService } from './database/database.service';
-import { DeviceService } from './device/device.service';
-import { EmailValidationService } from './email-validation.service';
-import { LogService } from './log/log.service';
-import { OnlineService } from './online/online.service';
+import { AuthService } from './auth';
+import { DatabaseService } from './database';
+import { DeviceService } from './device';
+import { EmailValidationService } from './email-validation';
+import { LogService } from './log';
+import { OnlineService } from './online';
 
 export {
     AuthService,

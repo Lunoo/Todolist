@@ -9,10 +9,9 @@ import Timestamp = firestore.Timestamp;
 
 import { createSnapshot, stringToTimestamp, Todo, TodoStateSnapshot } from '../../models';
 import { SettingsQuery, TodoQuery, TodoService, TodoState } from '../../store';
-// import { AuthService, LogService, OnlineService } from '..';
-import { AuthService } from '../auth/auth.service';
-import { LogService } from '../log/log.service';
-import { OnlineService } from '../online/online.service';
+import { AuthService } from '../auth';
+import { LogService } from '../log';
+import { OnlineService } from '../online';
 
 const TIME_DELAY = 20 * 1000;
 
