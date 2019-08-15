@@ -21,7 +21,7 @@ describe('AppComponent', () => {
                 AppComponent
             ],
             providers: [
-                {provide: AuthService, useClass: AuthServiceMock},
+                {provide: AuthService, useValue: AuthServiceMock},
                 {provide: DatabaseService, useValue: {}}
             ]
         });

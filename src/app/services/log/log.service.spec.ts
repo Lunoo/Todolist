@@ -11,7 +11,7 @@ describe('LogService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                {provide: MatSnackBar, useClass: MatSnackBarMock}
+                {provide: MatSnackBar, useValue: MatSnackBarMock}
             ]
         });
 
@@ -20,7 +20,7 @@ describe('LogService', () => {
     });
 
     it('showMessage method should call snackBar.open', () => {
-        spyOn(snackBar, 'open').and.callThrough();
+        spyOn(snackBar, 'open');
 
         logService.showMessage('Message', 'success');
 

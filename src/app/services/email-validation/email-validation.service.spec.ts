@@ -10,7 +10,7 @@ describe('EmailValidationService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                {provide: AngularFireAuth, useClass: AngularFireAuthMock}
+                {provide: AngularFireAuth, useValue: AngularFireAuthMock}
             ]
         });
 

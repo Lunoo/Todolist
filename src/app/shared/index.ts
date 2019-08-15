@@ -3,8 +3,8 @@ import { MaterialModule } from './material.module';
 import { PasswordValidatorDirective } from './password-validator.directive';
 import { SharedModule } from './shared.module';
 import {
-    AngularFireAuthMock, AuthServiceMock, EmailValidationServiceMock,
-    LogServiceMock, MatSnackBarMock, MatDialogMock, StoreMock, TodoServiceMock
+    AngularFireAuthMock, AuthServiceMock, EmailValidationServiceMock, HistoryMock, LogServiceMock,
+    MatSnackBarMock, MatDialogMock, QueryMock, StoreMock, TodoServiceMock
 } from './test-mocks';
 
 export {
@@ -12,11 +12,13 @@ export {
     AuthServiceMock,
     EmailValidatorDirective,
     EmailValidationServiceMock,
+    HistoryMock,
     LogServiceMock,
     MaterialModule,
     MatDialogMock,
     MatSnackBarMock,
     PasswordValidatorDirective,
+    QueryMock,
     SharedModule,
     StoreMock,
     TodoServiceMock

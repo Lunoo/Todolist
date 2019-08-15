@@ -27,7 +27,7 @@ describe('TodoDialogComponent', () => {
                 TodoDialogComponent
             ],
             providers: [
-                {provide: MatDialogRef, useClass: MatDialogMock},
+                {provide: MatDialogRef, useValue: MatDialogMock},
                 {provide: MAT_DIALOG_DATA, useValue: {}}
             ]
         });
@@ -40,7 +40,7 @@ describe('TodoDialogComponent', () => {
     });
 
     it('save method should trim todo.title and call dialogRef.close', () => {
-        spyOn(dialogRef, 'close').and.callThrough();
+        spyOn(dialogRef, 'close');
 
         component.todo = todo;
         component.todo.title = ' Todo title ';
@@ -50,7 +50,7 @@ describe('TodoDialogComponent', () => {
     });
 
     it('cancel method should call dialogRef.close without a value', () => {
-        spyOn(dialogRef, 'close').and.callThrough();
+        spyOn(dialogRef, 'close');
 
         component.todo = todo;
         component.cancel();

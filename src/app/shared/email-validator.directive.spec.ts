@@ -10,11 +10,11 @@ describe('EmailValidatorDirective', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                {provide: EmailValidationService, useClass: EmailValidationServiceMock}
+                {provide: EmailValidationService, useValue: EmailValidationServiceMock}
             ]
         });
 
-        directive = new EmailValidatorDirective(new EmailValidationServiceMock() as any);
+        directive = new EmailValidatorDirective(EmailValidationServiceMock as any);
     });
 
     it('validateEmailPromise method should return required error', fakeAsync(() => {

@@ -26,9 +26,9 @@ describe('AuthDialogComponent', () => {
                 AuthDialogComponent
             ],
             providers: [
-                {provide: AuthService, useClass: AuthServiceMock},
-                {provide: EmailValidationService, useClass: EmailValidationServiceMock},
-                {provide: MatDialogRef, useClass: MatDialogMock},
+                {provide: AuthService, useValue: AuthServiceMock},
+                {provide: EmailValidationService, useValue: EmailValidationServiceMock},
+                {provide: MatDialogRef, useValue: MatDialogMock},
                 {provide: MAT_DIALOG_DATA, useValue: {}}
             ]
         });

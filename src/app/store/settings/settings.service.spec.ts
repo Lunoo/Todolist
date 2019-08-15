@@ -11,7 +11,7 @@ describe('SettingsService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                {provide: SettingsStore, useClass: StoreMock}
+                {provide: SettingsStore, useValue: StoreMock}
             ]
         });
 
@@ -20,7 +20,7 @@ describe('SettingsService', () => {
     });
 
     it('update method should call settingsStore.update', () => {
-        spyOn(settingsStore, 'update').and.callThrough();
+        spyOn(settingsStore, 'update');
 
         settingsService.update({});
 

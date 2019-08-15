@@ -24,9 +24,9 @@ describe('AuthService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                {provide: AngularFireAuth, useClass: AngularFireAuthMock},
-                {provide: LogService, useClass: LogServiceMock},
-                {provide: TodoService, useClass: TodoServiceMock}
+                {provide: AngularFireAuth, useValue: AngularFireAuthMock},
+                {provide: LogService, useValue: LogServiceMock},
+                {provide: TodoService, useValue: TodoServiceMock}
             ]
         });
 
@@ -41,9 +41,9 @@ describe('AuthService', () => {
     });
 
     it('create method should clear state and show message', fakeAsync(() => {
-        spyOn(logService, 'showMessage').and.callThrough();
-        spyOn(todoService, 'cashLocalTodoList').and.callThrough();
-        spyOn(todoService, 'clearState').and.callThrough();
+        spyOn(logService, 'showMessage');
+        spyOn(todoService, 'cashLocalTodoList');
+        spyOn(todoService, 'clearState');
 
         authService.create(validData);
         tick();
@@ -54,7 +54,7 @@ describe('AuthService', () => {
     }));
 
     it('create method should handle error', fakeAsync(() => {
-        spyOn(logService, 'showMessage').and.callThrough();
+        spyOn(logService, 'showMessage');
 
         authService.create(invalidData);
         tick();
@@ -63,8 +63,8 @@ describe('AuthService', () => {
     }));
 
     it('signIn method should clear state', fakeAsync(() => {
-        spyOn(todoService, 'cashLocalTodoList').and.callThrough();
-        spyOn(todoService, 'clearState').and.callThrough();
+        spyOn(todoService, 'cashLocalTodoList');
+        spyOn(todoService, 'clearState');
 
         authService.signIn(validData);
         tick();
@@ -74,7 +74,7 @@ describe('AuthService', () => {
     }));
 
     it('signIn method should handle error', fakeAsync(() => {
-        spyOn(logService, 'showMessage').and.callThrough();
+        spyOn(logService, 'showMessage');
 
         authService.signIn(invalidData);
         tick();
@@ -84,7 +84,7 @@ describe('AuthService', () => {
 
     it('signOut method should recover cashed state', fakeAsync(() => {
         spyOn(todoService, 'clearState');
-        spyOn(todoService, 'getLocalTodoListFromCash').and.callThrough();
+        spyOn(todoService, 'getLocalTodoListFromCash');
 
         authService.signOut();
         tick();
@@ -94,7 +94,7 @@ describe('AuthService', () => {
     }));
 
     it('signOut method should handle error', fakeAsync(() => {
-        spyOn(logService, 'showMessage').and.callThrough();
+        spyOn(logService, 'showMessage');
         spyOn(angularFireAuth.auth, 'signOut').and.returnValue(Promise.reject());
 
         authService.signOut();

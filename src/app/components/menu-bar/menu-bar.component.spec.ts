@@ -23,9 +23,9 @@ describe('ActionBarComponent', () => {
                 MenuBarComponent
             ],
             providers: [
-                {provide: AuthService, useClass: AuthServiceMock},
-                {provide: MatDialog, useClass: MatDialogMock},
-                {provide: TodoService, useClass: TodoServiceMock}
+                {provide: AuthService, useValue: AuthServiceMock},
+                {provide: MatDialog, useValue: MatDialogMock},
+                {provide: TodoService, useValue: TodoServiceMock}
             ]
         });
 
@@ -39,7 +39,7 @@ describe('ActionBarComponent', () => {
     });
 
     it('back method should call todoService.back', () => {
-        spyOn(todoService, 'back').and.callThrough();
+        spyOn(todoService, 'back');
 
         component.back();
 
@@ -47,7 +47,7 @@ describe('ActionBarComponent', () => {
     });
 
     it('next method should call todoService.next', () => {
-        spyOn(todoService, 'next').and.callThrough();
+        spyOn(todoService, 'next');
 
         component.next();
 
@@ -55,7 +55,7 @@ describe('ActionBarComponent', () => {
     });
 
     it('openAuthDialog method should call dialog.open', () => {
-        spyOn(dialog, 'open').and.callThrough();
+        spyOn(dialog, 'open');
 
         component.openAuthDialog();
 
@@ -63,7 +63,7 @@ describe('ActionBarComponent', () => {
     });
 
     it('openProfileDialog method should call dialog.open', () => {
-        spyOn(dialog, 'open').and.callThrough();
+        spyOn(dialog, 'open');
 
         component.openProfileDialog();
 
@@ -71,7 +71,7 @@ describe('ActionBarComponent', () => {
     });
 
     it('openSettingsDialog method should call dialog.open', () => {
-        spyOn(dialog, 'open').and.callThrough();
+        spyOn(dialog, 'open');
 
         component.openSettingsDialog();
 
@@ -79,7 +79,7 @@ describe('ActionBarComponent', () => {
     });
 
     it('toggleMenu method should call settingsService.update', () => {
-        spyOn(settingsService, 'update').and.callThrough();
+        spyOn(settingsService, 'update');
 
         component.toggleMenu();
 

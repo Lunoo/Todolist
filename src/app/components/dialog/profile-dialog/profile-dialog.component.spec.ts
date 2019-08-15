@@ -16,8 +16,8 @@ describe('ProfileDialogComponent', () => {
                 ProfileDialogComponent
             ],
             providers: [
-                {provide: AuthService, useClass: AuthServiceMock},
-                {provide: MatDialogRef, useClass: MatDialogMock}
+                {provide: AuthService, useValue: AuthServiceMock},
+                {provide: MatDialogRef, useValue: MatDialogMock}
             ]
         });
 

@@ -19,7 +19,7 @@ describe('SettingsDialogComponent', () => {
                 SettingsDialogComponent
             ],
             providers: [
-                {provide: AuthService, useClass: AuthServiceMock}
+                {provide: AuthService, useValue: AuthServiceMock}
             ]
         });
 
@@ -31,7 +31,7 @@ describe('SettingsDialogComponent', () => {
     });
 
     it('onSynchronizeChange method should call settingsService.update', () => {
-        spyOn(settingsService, 'update').and.callThrough();
+        spyOn(settingsService, 'update');
 
         component.onSynchronizeChange(true);
 
@@ -39,7 +39,7 @@ describe('SettingsDialogComponent', () => {
     });
 
     it('onThemeChange method should call settingsService.update', () => {
-        spyOn(settingsService, 'update').and.callThrough();
+        spyOn(settingsService, 'update');
 
         component.onThemeChange('dark');
 

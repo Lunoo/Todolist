@@ -2,8 +2,8 @@ import { of } from 'rxjs';
 
 import { Todo } from '../models';
 
-export class AngularFireAuthMock {
-    auth = {
+export const AngularFireAuthMock = {
+    auth: {
         currentUser: null,
         createUserWithEmailAndPassword(email, password): Promise<void> {
             return email && password ? Promise.resolve() : Promise.reject();
@@ -23,78 +23,92 @@ export class AngularFireAuthMock {
         signOut(): Promise<void> {
             return Promise.resolve();
         }
-    };
-}
+    }
+};
 
-export class AuthServiceMock {
+export const AuthServiceMock = {
     getCurrentUser() {
         return {
             email: '',
             metadata: {}
         };
-    }
-
+    },
     create(): Promise<void> {
         return Promise.resolve();
-    }
-
+    },
     signIn(): Promise<void> {
         return Promise.resolve();
-    }
-
+    },
     signOut(): Promise<void> {
         return Promise.resolve();
     }
-}
+};
 
-export class EmailValidationServiceMock {
+export const EmailValidationServiceMock = {
     checkEmail(email: string): Promise<any> {
         return email === 'test@exist.com'
             ? Promise.resolve({code: 'auth/exist-email'})
             : Promise.resolve(null);
     }
-}
+};
 
-export class LogServiceMock {
-    showMessage(): void {}
-}
+export const HistoryMock = {
+    clear() {},
+    ignoreNext() {},
+    undo() {},
+    redo() {}
+};
 
-export class MatDialogMock {
-    close(): void {}
+export const LogServiceMock = {
+    showMessage() {}
+};
 
+export const MatDialogMock = {
+    close() {},
     open(todo?: Todo) {
         return {
             afterClosed: () => of(todo)
         };
     }
-}
+};
 
-export class MatSnackBarMock {
+export const MatSnackBarMock = {
     open(): void {}
-}
+};
 
-export class StoreMock {
-    update(): void {}
-}
+export const QueryMock = {
+    getValue() {
+        return {
+            created: '2019-08-14T13:53:34.046Z',
+            ids: []
+        };
+    },
+    pipe() {
+        return this;
+    },
+    select() {
+        return this;
+    },
+    subscribe() {}
+};
 
-export class TodoServiceMock {
-    history = {};
+export const StoreMock = {
+    add() {},
+    move() {},
+    remove() {},
+    set() {},
+    update() {}
+};
 
-    add(): void {}
-
-    back(): void {}
-
-    clearState(): void {}
-
-    cashLocalTodoList(): void {}
-
-    delete(): void {}
-
-    edit(): void {}
-
-    getLocalTodoListFromCash(): void {}
-
-    move(): void {}
-
-    next(): void {}
-}
+export const TodoServiceMock = {
+    history: {},
+    add() {},
+    back() {},
+    clearState() {},
+    cashLocalTodoList() {},
+    delete() {},
+    edit() {},
+    getLocalTodoListFromCash() {},
+    move() {},
+    next() {}
+};
