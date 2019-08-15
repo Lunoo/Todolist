@@ -1,14 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material';
 
+import { MatSnackBarMock } from '../../shared';
 import { LogService } from './log.service';
-
-class MatSnackBarMock {
-    open(): void {}
-}
 
 describe('LogService', () => {
     let logService: LogService;
+    let snackBar: MatSnackBar;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -18,13 +16,14 @@ describe('LogService', () => {
         });
 
         logService = TestBed.get(LogService);
+        snackBar = TestBed.get(MatSnackBar);
     });
 
     it('showMessage method should call snackBar.open', () => {
-        spyOn(logService['snackBar'], 'open');
+        spyOn(snackBar, 'open').and.callThrough();
 
         logService.showMessage('Message', 'success');
 
-        expect(logService['snackBar'].open).toHaveBeenCalled();
+        expect(snackBar.open).toHaveBeenCalled();
     });
 });

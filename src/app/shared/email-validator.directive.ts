@@ -25,7 +25,7 @@ export class EmailValidatorDirective implements Validator {
         return this.validateEmailPromise(c.value);
     }
 
-    private validateEmailPromise(email: string) {
+    private validateEmailPromise(email: string): Promise<ValidationErrors | null> {
         if (this.timeout) {
             clearTimeout(this.timeout);
         }

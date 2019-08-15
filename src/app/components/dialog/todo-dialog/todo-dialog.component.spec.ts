@@ -1,20 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MaterialModule } from '../../../shared/material.module';
 import { Todo } from '../../../models';
+import { MatDialogMock, SharedModule } from '../../../shared';
 import { TodoDialogComponent } from './todo-dialog.component';
-
-class MatDialogMock {
-    close(): void {
-    }
-}
 
 describe('TodoDialogComponent', () => {
     let component: TodoDialogComponent;
     let fixture: ComponentFixture<TodoDialogComponent>;
+    let dialogRef: MatDialogRef<TodoDialogComponent>;
 
     let todo: Todo = {
         completed: false,
@@ -26,17 +21,18 @@ describe('TodoDialogComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 BrowserAnimationsModule,
-                FormsModule,
-                MaterialModule
+                SharedModule
             ],
             declarations: [
                 TodoDialogComponent
             ],
             providers: [
-                {provide: MAT_DIALOG_DATA, useValue: {}},
-                {provide: MatDialogRef, useClass: MatDialogMock}
+                {provide: MatDialogRef, useClass: MatDialogMock},
+                {provide: MAT_DIALOG_DATA, useValue: {}}
             ]
         });
+
+        dialogRef = TestBed.get(MatDialogRef);
 
         fixture = TestBed.createComponent(TodoDialogComponent);
         component = fixture.componentInstance;
@@ -44,21 +40,21 @@ describe('TodoDialogComponent', () => {
     });
 
     it('save method should trim todo.title and call dialogRef.close', () => {
-        spyOn(component['dialogRef'], 'close');
+        spyOn(dialogRef, 'close').and.callThrough();
 
         component.todo = todo;
         component.todo.title = ' Todo title ';
         component.save();
 
-        expect(component['dialogRef'].close).toHaveBeenCalledWith(todo);
+        expect(dialogRef.close).toHaveBeenCalledWith(todo);
     });
 
     it('cancel method should call dialogRef.close without a value', () => {
-        spyOn(component['dialogRef'], 'close');
+        spyOn(dialogRef, 'close').and.callThrough();
 
         component.todo = todo;
         component.cancel();
 
-        expect(component['dialogRef'].close).toHaveBeenCalledWith();
+        expect(dialogRef.close).toHaveBeenCalledWith();
     });
 });

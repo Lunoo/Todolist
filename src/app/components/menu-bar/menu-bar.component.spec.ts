@@ -1,27 +1,37 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+import { MatDialog } from '@angular/material';
 
-import { MaterialModule } from '../../shared/material.module';
-import { environment } from '../../../environments/environment';
+import { AuthServiceMock, MatDialogMock, MaterialModule, TodoServiceMock } from '../../shared';
+import { AuthService } from '../../services';
+import { SettingsService, TodoService } from '../../store';
 import { ProfileDialogComponent, SettingsDialogComponent } from '../dialog';
 import { MenuBarComponent } from './menu-bar.component';
 
 describe('ActionBarComponent', () => {
     let component: MenuBarComponent;
     let fixture: ComponentFixture<MenuBarComponent>;
+    let dialog: MatDialog;
+    let settingsService: SettingsService;
+    let todoService: TodoService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                AngularFireModule.initializeApp(environment.firebase),
-                AngularFireAuthModule,
                 MaterialModule
             ],
             declarations: [
                 MenuBarComponent
             ],
+            providers: [
+                {provide: AuthService, useClass: AuthServiceMock},
+                {provide: MatDialog, useClass: MatDialogMock},
+                {provide: TodoService, useClass: TodoServiceMock}
+            ]
         });
+
+        dialog = TestBed.get(MatDialog);
+        settingsService = TestBed.get(SettingsService);
+        todoService = TestBed.get(TodoService);
 
         fixture = TestBed.createComponent(MenuBarComponent);
         component = fixture.componentInstance;
@@ -29,50 +39,50 @@ describe('ActionBarComponent', () => {
     });
 
     it('back method should call todoService.back', () => {
-        spyOn(component['todoService'], 'back');
+        spyOn(todoService, 'back').and.callThrough();
 
         component.back();
 
-        expect(component['todoService'].back).toHaveBeenCalled();
+        expect(todoService.back).toHaveBeenCalled();
     });
 
     it('next method should call todoService.next', () => {
-        spyOn(component['todoService'], 'next');
+        spyOn(todoService, 'next').and.callThrough();
 
         component.next();
 
-        expect(component['todoService'].next).toHaveBeenCalled();
+        expect(todoService.next).toHaveBeenCalled();
     });
 
     it('openAuthDialog method should call dialog.open', () => {
-        spyOn(component['dialog'], 'open');
+        spyOn(dialog, 'open').and.callThrough();
 
         component.openAuthDialog();
 
-        expect(component['dialog'].open).toHaveBeenCalled();
+        expect(dialog.open).toHaveBeenCalled();
     });
 
     it('openProfileDialog method should call dialog.open', () => {
-        spyOn(component['dialog'], 'open');
+        spyOn(dialog, 'open').and.callThrough();
 
         component.openProfileDialog();
 
-        expect(component['dialog'].open).toHaveBeenCalledWith(ProfileDialogComponent);
+        expect(dialog.open).toHaveBeenCalledWith(ProfileDialogComponent);
     });
 
     it('openSettingsDialog method should call dialog.open', () => {
-        spyOn(component['dialog'], 'open');
+        spyOn(dialog, 'open').and.callThrough();
 
         component.openSettingsDialog();
 
-        expect(component['dialog'].open).toHaveBeenCalledWith(SettingsDialogComponent);
+        expect(dialog.open).toHaveBeenCalledWith(SettingsDialogComponent);
     });
 
     it('toggleMenu method should call settingsService.update', () => {
-        spyOn(component['settingsService'], 'update');
+        spyOn(settingsService, 'update').and.callThrough();
 
         component.toggleMenu();
 
-        expect(component['settingsService'].update).toHaveBeenCalledWith({showMenu: false});
+        expect(settingsService.update).toHaveBeenCalledWith({showMenu: false});
     });
 });

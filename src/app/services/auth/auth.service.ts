@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from 'firebase';
 import { Observable } from 'rxjs';
 
-import { LogService } from '../log/log.service';
+import { LogService } from '../log';
 import { TodoService } from '../../store';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class AuthService {
         return this.fireAuth.auth.currentUser;
     }
 
-    create({email, password}): Promise<any> {
+    create({email, password}): Promise<void> {
         return this.fireAuth.auth.createUserWithEmailAndPassword(email, password)
             .then(() => {
                 this.logService.showMessage('User was successfully created', 'success');
@@ -33,7 +33,7 @@ export class AuthService {
             .catch(err => this.logService.showMessage(err, 'error'));
     }
 
-    signIn({email, password}): Promise<any> {
+    signIn({email, password}): Promise<void> {
         return this.fireAuth.auth.signInWithEmailAndPassword(email, password)
             .then(() => {
                 this.todoService.cashLocalTodoList();
@@ -42,7 +42,7 @@ export class AuthService {
             .catch(err => this.logService.showMessage(err, 'error'));
     }
 
-    signOut(): Promise<any> {
+    signOut(): Promise<void> {
         return this.fireAuth.auth.signOut()
             .then(() => {
                 this.todoService.clearState();

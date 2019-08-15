@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MaterialModule } from '../../../shared/material.module';
 import { Todo } from '../../../models';
+import { MaterialModule } from '../../../shared';
 import { TodoItemComponent } from './todo-item.component';
 
 describe('TodoItemComponent', () => {

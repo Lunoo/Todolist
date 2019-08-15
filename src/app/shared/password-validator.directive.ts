@@ -36,5 +36,7 @@ export class PasswordValidatorDirective implements Validator {
                           one uppercase letter and one number.`
             };
         }
+
+        return null;
     }
 }

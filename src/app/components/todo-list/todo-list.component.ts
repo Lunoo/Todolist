@@ -25,7 +25,7 @@ export class TodoListComponent implements OnInit {
     constructor(private dialog: MatDialog,
                 private deviceService: DeviceService,
                 private query: TodoQuery,
-                private store: TodoService) {
+                private todoService: TodoService) {
         this.isMobile$ = this.deviceService.isMobile$;
     }
 
@@ -34,19 +34,19 @@ export class TodoListComponent implements OnInit {
     }
 
     createTodo(todo: Todo): void {
-        this.store.add(todo);
+        this.todoService.add(todo);
     }
 
     dropTodo(event: CdkDragDrop<Todo[]>): void {
-        this.store.move(event.previousIndex, event.currentIndex);
+        this.todoService.move(event.previousIndex, event.currentIndex);
     }
 
     editTodo(todo: Todo): void {
-        this.store.edit(todo);
+        this.todoService.edit(todo);
     }
 
     deleteTodo(todoId: ID): void {
-        this.store.delete(todoId);
+        this.todoService.delete(todoId);
     }
 
     itemTrackBy(index: number, item: Todo): ID {

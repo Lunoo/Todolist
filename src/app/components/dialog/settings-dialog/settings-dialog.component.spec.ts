@@ -1,21 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MaterialModule } from '../../../shared/material.module';
+import { AuthServiceMock, MaterialModule } from '../../../shared';
 import { AuthService } from '../../../services/auth';
+import { SettingsService } from '../../../store';
 import { SettingsDialogComponent } from './settings-dialog.component';
-
-class AuthServiceMock {
-    getCurrentUser() {
-        return {
-            email: '',
-            metadata: {}
-        };
-    }
-}
 
 describe('SettingsDialogComponent', () => {
     let component: SettingsDialogComponent;
     let fixture: ComponentFixture<SettingsDialogComponent>;
+    let settingsService: SettingsService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -30,24 +23,26 @@ describe('SettingsDialogComponent', () => {
             ]
         });
 
+        settingsService = TestBed.get(SettingsService);
+
         fixture = TestBed.createComponent(SettingsDialogComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
 
     it('onSynchronizeChange method should call settingsService.update', () => {
-        spyOn(component['settingsService'], 'update');
+        spyOn(settingsService, 'update').and.callThrough();
 
         component.onSynchronizeChange(true);
 
-        expect(component['settingsService'].update).toHaveBeenCalledWith({synchronize: true});
+        expect(settingsService.update).toHaveBeenCalledWith({synchronize: true});
     });
 
     it('onThemeChange method should call settingsService.update', () => {
-        spyOn(component['settingsService'], 'update');
+        spyOn(settingsService, 'update').and.callThrough();
 
         component.onThemeChange('dark');
 
-        expect(component['settingsService'].update).toHaveBeenCalledWith({theme: 'dark'});
+        expect(settingsService.update).toHaveBeenCalledWith({theme: 'dark'});
     });
 });

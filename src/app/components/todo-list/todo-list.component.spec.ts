@@ -1,25 +1,20 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs';
 
-import { DialogModule } from '../dialog/dialog.module';
-import { MaterialModule } from '../../shared/material.module';
 import { Todo } from '../../models';
+import { MatDialogMock, SharedModule, TodoServiceMock } from '../../shared';
+import { TodoService } from '../../store';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { TodoListComponent } from './todo-list.component';
-
-class MatDialogMock {
-    open(todo?: Todo) {
-        return {
-            afterClosed: () => of(todo)
-        };
-    }
-}
 
 describe('TodoListComponent', () => {
     let component: TodoListComponent;
     let fixture: ComponentFixture<TodoListComponent>;
+
+    let dialog: MatDialog;
+    let todoService: TodoService;
 
     let todo: Todo = {
         completed: false,
@@ -32,14 +27,20 @@ describe('TodoListComponent', () => {
             imports: [
                 BrowserAnimationsModule,
                 DragDropModule,
-                DialogModule,
-                MaterialModule
+                SharedModule
             ],
             declarations: [
                 TodoListComponent,
                 TodoItemComponent
+            ],
+            providers: [
+                {provide: MatDialog, useClass: MatDialogMock},
+                {provide: TodoService, useClass: TodoServiceMock},
             ]
         });
+
+        dialog = TestBed.get(MatDialog);
+        todoService = TestBed.get(TodoService);
 
         fixture = TestBed.createComponent(TodoListComponent);
         component = fixture.componentInstance;
@@ -51,50 +52,50 @@ describe('TodoListComponent', () => {
     });
 
     it('dropTodo method should call store.move', () => {
-        spyOn(component['store'], 'move');
+        spyOn(todoService, 'move').and.callThrough();
 
         component.dropTodo({} as any);
 
-        expect(component['store'].move).toHaveBeenCalled();
+        expect(todoService.move).toHaveBeenCalled();
     });
 
     it('createTodo method should call store.add', () => {
-        spyOn(component['store'], 'add');
+        spyOn(todoService, 'add').and.callThrough();
 
         component.createTodo(todo);
 
-        expect(component['store'].add).toHaveBeenCalledWith(todo);
+        expect(todoService.add).toHaveBeenCalledWith(todo);
     });
 
     it('editTodo method should call store.edit', () => {
-        spyOn(component['store'], 'edit');
+        spyOn(todoService, 'edit').and.callThrough();
 
         component.editTodo(todo);
 
-        expect(component['store'].edit).toHaveBeenCalledWith(todo);
+        expect(todoService.edit).toHaveBeenCalledWith(todo);
     });
 
     it('deleteTodo method should call store.delete', () => {
-        spyOn(component['store'], 'delete');
+        spyOn(todoService, 'delete').and.callThrough();
 
         component.deleteTodo(todo.id);
 
-        expect(component['store'].delete).toHaveBeenCalledWith(todo.id);
+        expect(todoService.delete).toHaveBeenCalledWith(todo.id);
     });
 
     it('openDialog method should call dialog.open', () => {
-        spyOn<any>(component['dialog'], 'open').and.returnValue(new MatDialogMock().open());
+        spyOn<any>(dialog, 'open').and.returnValue(new MatDialogMock().open());
 
         component.openDialog();
 
-        expect(component['dialog'].open).toHaveBeenCalled();
+        expect(dialog.open).toHaveBeenCalled();
     });
 
     it('openDialog method should call createTodo after dialog closed, if todo.id doesn\'t exist', fakeAsync(() => {
         spyOn(component, 'createTodo');
 
         let newTodo = new Todo();
-        spyOn<any>(component['dialog'], 'open').and.returnValue(new MatDialogMock().open(newTodo));
+        spyOn<any>(dialog, 'open').and.returnValue(new MatDialogMock().open(newTodo));
 
         component.openDialog();
         tick();
@@ -104,7 +105,7 @@ describe('TodoListComponent', () => {
 
     it('openDialog method should call editTodo after dialog closed, if todo.id exists', fakeAsync(() => {
         spyOn(component, 'editTodo');
-        spyOn<any>(component['dialog'], 'open').and.returnValue(new MatDialogMock().open(todo));
+        spyOn<any>(dialog, 'open').and.returnValue(new MatDialogMock().open(todo));
 
         component.openDialog(todo);
         tick();

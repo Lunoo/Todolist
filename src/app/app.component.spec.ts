@@ -1,9 +1,8 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 
-import { environment } from '../environments/environment';
+import { AuthServiceMock } from './shared';
+import { AuthService } from './services/auth';
+import { DatabaseService } from './services/database';
 import { MenuBarModule } from './components/menu-bar/menu-bar.module';
 import { TodoListModule } from './components/todo-list/todo-list.module';
 import { AppComponent } from './app.component';
@@ -15,14 +14,15 @@ describe('AppComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                AngularFireModule.initializeApp(environment.firebase),
-                AngularFireAuthModule,
-                AngularFirestoreModule,
                 MenuBarModule,
                 TodoListModule
             ],
             declarations: [
                 AppComponent
+            ],
+            providers: [
+                {provide: AuthService, useClass: AuthServiceMock},
+                {provide: DatabaseService, useValue: {}}
             ]
         });
 
