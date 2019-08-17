@@ -1,6 +1,8 @@
-import { of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
-import { Todo } from '../models';
+import 'firebase/firestore';
+import { firestore } from 'firebase/app';
+import Timestamp = firestore.Timestamp;
 
 export const AngularFireAuthMock = {
     auth: {
@@ -27,6 +29,7 @@ export const AngularFireAuthMock = {
 };
 
 export const AuthServiceMock = {
+    user$: new BehaviorSubject(null),
     getCurrentUser() {
         return {
             email: '',
@@ -41,6 +44,24 @@ export const AuthServiceMock = {
     },
     signOut(): Promise<void> {
         return Promise.resolve();
+    }
+};
+
+export const AngularFirestoreMock = {
+    doc() {
+        return this;
+    },
+    set() {
+        return Promise.resolve();
+    },
+    update() {
+        return Promise.resolve();
+    },
+    valueChanges() {
+        return of({
+            created: new Timestamp(1565790814, 0),
+            entities: []
+        });
     }
 };
 
@@ -65,7 +86,7 @@ export const LogServiceMock = {
 
 export const MatDialogMock = {
     close() {},
-    open(todo?: Todo) {
+    open(todo?) {
         return {
             afterClosed: () => of(todo)
         };
@@ -76,7 +97,12 @@ export const MatSnackBarMock = {
     open(): void {}
 };
 
+export const OnlineServiceMock = {
+    isOnline$: of(true)
+};
+
 export const QueryMock = {
+    todoList$: of(null),
     getValue() {
         return {
             created: '2019-08-14T13:53:34.046Z',
@@ -92,6 +118,10 @@ export const QueryMock = {
     subscribe() {}
 };
 
+export const SettingsQueryMock = {
+    synchronize$: of(true)
+};
+
 export const StoreMock = {
     add() {},
     move() {},
@@ -104,11 +134,13 @@ export const TodoServiceMock = {
     history: {},
     add() {},
     back() {},
+    clearHistory() {},
     clearState() {},
     cashLocalTodoList() {},
     delete() {},
     edit() {},
     getLocalTodoListFromCash() {},
     move() {},
-    next() {}
+    next() {},
+    setState() {}
 };

@@ -13,7 +13,7 @@ import { AuthService } from '../auth';
 import { LogService } from '../log';
 import { OnlineService } from '../online';
 
-const TIME_DELAY = 20 * 1000;
+export const TIME_DELAY = 10 * 1000;
 
 @Injectable({
     providedIn: 'root'
@@ -81,7 +81,7 @@ export class DatabaseService {
             .finally(() => setTimeout(() => this.skipRequest = false, 1000));
     }
 
-    private checkUpdates(serverState: TodoStateSnapshot): void {
+    private checkUpdates(serverState?: TodoStateSnapshot): void {
         const localState: TodoState = this.todoQuery.getValue();
 
         if (!serverState) {
@@ -143,6 +143,7 @@ export class DatabaseService {
             } else {
                 // unsubscribe to all changes
                 this.subs.forEach(sub => sub.unsubscribe());
+                this.subs = [];
                 clearTimeout(this.timeout);
             }
         });
@@ -167,6 +168,9 @@ export class DatabaseService {
             if (user) {
                 this.todoDoc = this.aFirestore.doc('todoList/' + user.email);
                 this.todoState$ = this.todoDoc.valueChanges();
+            } else {
+                this.todoDoc = null;
+                this.todoState$ = null;
             }
         });
     }
