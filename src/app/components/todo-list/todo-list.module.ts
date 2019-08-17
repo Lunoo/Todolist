@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../../shared';
 import { DialogModule } from '../dialog/dialog.module';
 import { TodoListComponent } from './todo-list.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
